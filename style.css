@@ -52,8 +52,8 @@ body { font-family: 'Jost', sans-serif; color: #333; }
 /* Contact Section */
 #contact { 
     clear: both; 
-    background: #2c3e50; 
-    color: white; 
+    background: #bfe3d7; 
+    color: #002b1b; 
     padding: 60px 20px; 
     text-align: center; 
 }
@@ -69,7 +69,7 @@ body { font-family: 'Jost', sans-serif; color: #333; }
     gap: 30px; 
 }
 .contact-card { 
-    background: #34495e; 
+    background: #598f7d; 
     padding: 20px; 
     border-radius: 8px; 
     width: 280px; 
@@ -86,20 +86,20 @@ body { font-family: 'Jost', sans-serif; color: #333; }
 .contact-card p { 
     font-size: 16px; 
     margin-bottom: 20px; 
-    color: #ecf0f1; 
+    color: #002b1b; 
 }
 .contact-card a { 
     display: inline-block; 
     padding: 10px 20px; 
-    background: #3498db; 
-    color: white; 
+    background: #47f9becf; 
+    color: #002b1b; 
     text-decoration: none; 
     border-radius: 5px; 
     font-size: 16px; 
     transition: background 0.3s ease; 
 }
 .contact-card a:hover { 
-    background: #2980b9; 
+    background: #07c975; 
 }
 
 /* Footer */
