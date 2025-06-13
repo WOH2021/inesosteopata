@@ -123,7 +123,7 @@ body { font-family: 'Jost', sans-serif; color: #333; }
 .contact-card a { 
     display: inline-block; 
     padding: 10px 20px; 
-    background: #01b165; 
+    background: #65b155; 
     color: #ffffff; 
     text-decoration: none; 
     border-radius: 5px; 
@@ -131,7 +131,7 @@ body { font-family: 'Jost', sans-serif; color: #333; }
     transition: background 0.3s ease; 
 }
 .contact-card a:hover { 
-    background: #1fd888; 
+    background: #60ab51b1; 
 }
 
 /* Footer */
