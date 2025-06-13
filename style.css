@@ -3,15 +3,15 @@ import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;7
 
 html, body { margin: 0; padding: 0; width: 100%; overflow-x: hidden; }
 body { font-family: 'Jost', sans-serif; color: #333; }
-.logo { height: 50px; }
+.logo { height: 250px; }
 
 #imagelanding .int { background: rgba(0,0,0,0.4); }
-#imagelanding .int * { color: white; }
+#imagelanding .int * { color: #ffffff; }
 #imagelanding .int h1 { font-size: 50px; }
 #imagelanding .int h3 { font-size: 25px; }
 #imagelanding #knowmore { 
     margin-top: 40px; 
-    border: 2px solid white; 
+    border: 2px solid  #DBEAEA; 
     background: none; 
     padding: 10px 20px; 
     font-size: 25px; 
@@ -26,7 +26,12 @@ body { font-family: 'Jost', sans-serif; color: #333; }
     position: relative; 
     text-align: center; 
     padding: 40px 0; 
-    background: #f8f8f8; 
+    background: #f8f8f8;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* allows wrapping */
+    justify-content: center;
+    gap: 30px;
 }
 .columnimagecontainer { 
     width: 100%; 
@@ -52,7 +57,7 @@ body { font-family: 'Jost', sans-serif; color: #333; }
 /* Contact Section */
 #contact { 
     clear: both; 
-    background: #bfe3d7; 
+    background: #DBEAEA; 
     color: #002b1b; 
     padding: 60px 20px; 
     text-align: center; 
@@ -69,10 +74,10 @@ body { font-family: 'Jost', sans-serif; color: #333; }
     gap: 30px; 
 }
 .contact-card { 
-    background: #1b5541; 
+    background: #145a32; 
     padding: 20px; 
     border-radius: 8px; 
-    width: 280px; 
+    width: 280px;
     transition: transform 0.3s ease, box-shadow 0.3s ease; 
 }
 .contact-card:hover { 
@@ -81,7 +86,8 @@ body { font-family: 'Jost', sans-serif; color: #333; }
 }
 .contact-card h3 { 
     font-size: 22px; 
-    margin-bottom: 15px; 
+    margin-bottom: 15px;
+    color: #ffffff;
 }
 .contact-card p { 
     font-size: 16px; 
@@ -91,7 +97,7 @@ body { font-family: 'Jost', sans-serif; color: #333; }
 .contact-card a { 
     display: inline-block; 
     padding: 10px 20px; 
-    background: #247b5ecf; 
+    background: #01b165; 
     color: #ffffff; 
     text-decoration: none; 
     border-radius: 5px; 
@@ -99,15 +105,15 @@ body { font-family: 'Jost', sans-serif; color: #333; }
     transition: background 0.3s ease; 
 }
 .contact-card a:hover { 
-    background: #07c975; 
+    background: #1fd888; 
 }
 
 /* Footer */
 footer { 
-    background: #1c571c; 
+    background: #145a32; 
     color: #ecf1ec; 
     text-align: center; 
-    padding: 20px; 
+    padding: 05px; 
     font-size: 14px; 
 }
 
