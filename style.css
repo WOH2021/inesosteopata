@@ -5,13 +5,39 @@ html, body { margin: 0; padding: 0; width: 100%; overflow-x: hidden; }
 body { font-family: 'Jost', sans-serif; color: #333; }
 .logo { height: 250px; }
 
-#imagelanding .int { background: rgba(0,0,0,0.4); }
+.landing-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100vh;
+}
+
+#title {
+  width: 40%;
+  background-color: #145a32;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+#imagelanding {
+  width: 60%;
+  background: url(assets/images/pexels-yankrukov-5794027.jpg);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#imagelanding .int { background: #00000066; }
 #imagelanding .int * { color: #ffffff; }
 #imagelanding .int h1 { font-size: 50px; }
 #imagelanding .int h3 { font-size: 25px; }
 #imagelanding #knowmore { 
     margin-top: 40px; 
-    border: 2px solid  #DBEAEA; 
+    border: 2px solid  #fff; 
     background: none; 
     padding: 10px 20px; 
     font-size: 25px; 
@@ -119,6 +145,11 @@ footer {
 
 /* Responsive Design */
 @media only screen and (max-width: 800px) { 
+    .landing-container {
+    flex-direction: column;
+    height: auto;
+    }
+    
     .int { 
         padding: 20px; 
         width: 100%; 
@@ -127,22 +158,27 @@ footer {
         vertical-align: middle; 
         text-align: center; 
     }
-    #title { 
-        display: table; 
-        width: 100%; 
-        height: 50px; 
-        position: relative; 
+
+    #title {
+    width: 100%;
+    height: 50vh;
+    background-color: #DBEAEA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     }
-    #imagelanding { 
-        display: table; 
-        width: 100%; 
-        height: calc(100vh - 80px); 
-        position: relative; 
-        float: right; 
-        background: url(assets/images/pexels-yankrukov-5794027.jpg); 
-        background-size: cover; 
-        background-position: top center; 
+    
+    #imagelanding {
+    width: 100%;
+    height: 50vh;
+    background: url(assets/images/pexels-yankrukov-5794027.jpg);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     }
+
     .column { 
         width: 80%; 
         margin: 10%; 
@@ -165,22 +201,30 @@ footer {
         vertical-align: middle; 
         text-align: center; 
     }
+    
+    .landing-container {
+    flex-direction: column;
+    height: auto;
+    background: #DBEAEA;
+  }
+
     #title { 
         display: table; 
-        width: 30%; 
-        height: 100vh; 
+        width: 100%;
+        height: 50vh;
         position: relative; 
         float: left; 
+        background-color: #DBEAEA;
     }
     #imagelanding { 
         display: table; 
-        width: 70%; 
-        height: 100vh; 
+        width: 100%;
+        height: 50vh;
         position: relative; 
         float: right; 
-        background: url(assets/images/pexels-yankrukov-5794027.jpg); 
+        background: url(assets/images/pexels-yankrukov-5794027.jpg);
         background-size: cover; 
-        background-position: top center; 
+        background-position: center; 
     }
     #title .int h3 { font-size: 35px; }
     .column { 
