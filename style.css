@@ -91,8 +91,8 @@ body { font-family: 'Jost', sans-serif; color: #333; }
 .contact-card a { 
     display: inline-block; 
     padding: 10px 20px; 
-    background: #47f9becf; 
-    color: #002b1b; 
+    background: #134c39cf; 
+    color: #ffffff; 
     text-decoration: none; 
     border-radius: 5px; 
     font-size: 16px; 
@@ -104,8 +104,8 @@ body { font-family: 'Jost', sans-serif; color: #333; }
 
 /* Footer */
 footer { 
-    background: #1a252f; 
-    color: #ecf0f1; 
+    background: #0f2011; 
+    color: #ecf1ec; 
     text-align: center; 
     padding: 20px; 
     font-size: 14px; 
