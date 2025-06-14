@@ -10,8 +10,8 @@ body {
 
  /* Header com ícones sociais */
 header {
-  padding: 10px 20px;
-  background-color: #f9f9f9;
+  padding: 5px 20px;
+  background-color: #85b0b0c8;
   display: flex;
   justify-content: flex-end;
 }
@@ -127,7 +127,7 @@ header {
     gap: 30px; 
 }
 .contact-card { 
-    background: #85b0b0; 
+    background: #85b0b0c8; 
     padding: 20px; 
     border-radius: 8px; 
     width: 280px;
@@ -163,7 +163,7 @@ header {
 
 /* Footer */
 footer { 
-    background: #85b0b0; 
+    background: #85b0b0c8; 
     color: #ecf1ec; 
     text-align: center; 
     padding: 05px; 
