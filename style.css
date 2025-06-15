@@ -32,7 +32,15 @@ header {
   transform: scale(1.2);
 }
 
-.logo { height: 225px; }
+.logo {
+    max-height: 225px;
+    height: auto;
+    width: 100%;
+    max-width: 300px;
+    display: block;
+    margin: 0 auto;
+}
+
 
 .landing-container {
   display: flex;
@@ -189,6 +197,12 @@ footer {
         align-items: right;
     }
 
+    .logo {
+    max-width: 200px;
+    max-height: 150px;
+    }
+
+
     .landing-container {
     flex-direction: column;
     height: auto;
@@ -245,6 +259,13 @@ footer {
     .social-icons a {
         margin-left: 15px;
     }
+    
+    .logo {
+        max-width: 300px;
+        max-height: 225px;
+    }
+
+
     .int { 
         padding: 20px; 
         width: 100%; 
