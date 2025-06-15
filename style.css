@@ -11,7 +11,7 @@ body {
  /* Header com ícones sociais */
 header {
   padding: 5px 20px;
-  background-color: #85b0b0c8;
+  background-color: #DBEAEA;
   display: flex;
   justify-content: flex-end;
 }
@@ -178,7 +178,6 @@ footer {
     }
     
     .int { 
-        padding: 20px; 
         width: 100%; 
         height: 100%; 
         display: table-cell; 
