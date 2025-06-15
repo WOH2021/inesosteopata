@@ -10,7 +10,8 @@ body {
 
  /* Header com ícones sociais */
 header {
-  padding: 5px 20px;
+  padding: 20px 20px;
+  padding-right: 50px;
   background-color: #DBEAEA;
   display: flex;
   justify-content: flex-end;
@@ -28,10 +29,18 @@ header {
 }
 
 .social-icons img:hover {
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 
-.logo { height: 225px; }
+.logo {
+    max-height: 225px;
+    height: auto;
+    width: 100%;
+    max-width: 300px;
+    display: block;
+    margin: 0 auto;
+}
+
 
 .landing-container {
   display: flex;
@@ -172,6 +181,28 @@ footer {
 
 /* Responsive Design */
 @media only screen and (max-width: 800px) { 
+
+    .social-icons {
+    display: flex;
+    justify-content: right;
+    margin-top: 10px;
+    }
+
+    .social-icons a {
+        margin: 0 10px;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: right;
+    }
+
+    .logo {
+    max-width: 200px;
+    max-height: 150px;
+    }
+
+
     .landing-container {
     flex-direction: column;
     height: auto;
@@ -219,6 +250,22 @@ footer {
 }
 
 @media only screen and (min-width: 801px) {
+    .social-icons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: right;
+    }
+
+    .social-icons a {
+        margin-left: 15px;
+    }
+    
+    .logo {
+        max-width: 300px;
+        max-height: 225px;
+    }
+
+
     .int { 
         padding: 20px; 
         width: 100%; 
