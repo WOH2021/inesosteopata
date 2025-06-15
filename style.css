@@ -186,6 +186,7 @@ footer {
     display: flex;
     justify-content: right;
     margin-top: 10px;
+    visibility: visible;
     }
 
     .social-icons a {
@@ -196,12 +197,6 @@ footer {
         flex-direction: column;
         align-items: right;
     }
-
-    .logo {
-    max-width: 200px;
-    max-height: 150px;
-    }
-
 
     .landing-container {
     flex-direction: column;
@@ -254,6 +249,7 @@ footer {
     display: flex;
     justify-content: flex-end;
     align-items: right;
+    visibility: visible;
     }
 
     .social-icons a {
