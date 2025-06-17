@@ -17,6 +17,10 @@ header {
   justify-content: flex-end;
 }
 
+#about {
+    background: #f8f8f8;
+}
+
 .social-icons a {
   margin-left: 15px;
   text-decoration: none;
@@ -179,6 +183,59 @@ footer {
     font-size: 14px; 
 }
 
+#pediatrica {
+  background: #f0f8f8;
+  color: #203838;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+#pediatrica .section-intro {
+  max-width: 800px;
+  margin: 0 auto 40px auto;
+}
+
+#pediatrica h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+#pediatrica p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #203838;
+}
+
+.reasons-container h3 {
+  font-size: 24px;
+  margin-bottom: 30px;
+  color: #203838;
+}
+
+.reason-list {
+  list-style: none;
+  padding: 0;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.reason-list li {
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.reason-list li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: #5a9393;
+  font-size: 16px;
+}
+
 /* Responsive Design */
 @media only screen and (max-width: 800px) { 
 
@@ -244,6 +301,31 @@ footer {
     .contact-card { width: 100%; max-width: 300px; }
 }
 
+  #pediatrica {
+    padding: 40px 15px;
+  }
+
+  #pediatrica h2 {
+    font-size: 24px;
+  }
+
+  #pediatrica p {
+    font-size: 16px;
+  }
+
+  .reasons-container h3 {
+    font-size: 20px;
+  }
+
+  .reason-list li {
+    font-size: 14px;
+    padding-left: 24px;
+  }
+
+  .reason-list li::before {
+    font-size: 14px;
+  }
+
 @media only screen and (min-width: 801px) {
     .social-icons {
     display: flex;
@@ -307,3 +389,28 @@ footer {
     #contact h2 { font-size: 32px; }
     .contact-card { width: 280px; }
 }
+
+#pediatrica {
+    padding: 80px 40px;
+  }
+
+  #pediatrica h2 {
+    font-size: 36px;
+  }
+
+  #pediatrica p {
+    font-size: 20px;
+  }
+
+  .reasons-container h3 {
+    font-size: 28px;
+  }
+
+  .reason-list li {
+    font-size: 18px;
+    padding-left: 32px;
+  }
+
+  .reason-list li::before {
+    font-size: 18px;
+  }
