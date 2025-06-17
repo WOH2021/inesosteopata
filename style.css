@@ -106,7 +106,8 @@ header {
     position: relative; 
     background-size: cover; 
     background-position: center top; 
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
+    border-radius: 3px;
 }
 .column h2 { 
     margin-top: 30px; 
@@ -140,7 +141,7 @@ header {
     gap: 30px; 
 }
 .contact-card { 
-    background: #85b0b0c8; 
+    background: #f0f8f8; 
     padding: 20px; 
     border-radius: 8px; 
     width: 280px;
@@ -153,18 +154,18 @@ header {
 .contact-card h3 { 
     font-size: 22px; 
     margin-bottom: 15px;
-    color: #ffffff;
+    color: #203838;
 }
 .contact-card p { 
     font-size: 16px; 
     margin-bottom: 20px; 
-    color: #ffffff; 
+    color: #203838; 
 }
 .contact-card a { 
     display: inline-block; 
     padding: 10px 20px; 
-    background: #5a9393; 
-    color: #ffffff; 
+    background: #DBEAEA; 
+    color: #203838; 
     text-decoration: none; 
     border-radius: 5px; 
     font-size: 16px; 
@@ -176,8 +177,8 @@ header {
 
 /* Footer */
 footer { 
-    background: #85b0b0c8; 
-    color: #ecf1ec; 
+    background: #DBEAEA; 
+    color: #203838; 
     text-align: center; 
     padding: 05px; 
     font-size: 14px; 
