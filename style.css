@@ -233,9 +233,10 @@ footer {
   
   .social-icons {
     display: flex;
-    justify-content: right;
+    justify-content: center;
     margin-top: 10px;
     visibility: visible;
+    padding-bottom: 20px;
     }
 
     .social-icons a {
