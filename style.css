@@ -337,6 +337,11 @@ footer {
     justify-content: center;
     }
 
+    #imagelanding .int {
+        box-sizing: border-box;
+        padding-inline: clamp(16px, 5vw, 40px);
+    }
+
     .column {
         width: 80%;
         margin: 10%;
