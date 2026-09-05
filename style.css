@@ -16,6 +16,7 @@ body {
   width: 100%;
   margin: 0;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -39,8 +40,9 @@ body {
 }
 
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
   z-index: 10;
   display: flex;
   align-items: center;
@@ -49,6 +51,7 @@ body {
   padding: 0.75rem var(--page-gutter);
   background: #fff;
   box-shadow: 0 2px 8px #2038381f;
+  width: 100%;
 }
 
 .brand-link,
@@ -58,8 +61,20 @@ body {
 }
 
 .brand-link {
-  font-size: 1.125rem;
-  font-weight: 600;
+  display: block;
+  line-height: 0;
+}
+
+.header-logo {
+  display: block;
+  width: 9rem;
+  height: 2.5rem;
+  object-fit: contain;
+  object-position: left center;
+}
+
+#top {
+  height: 4rem;
 }
 
 .site-header nav {
@@ -171,7 +186,7 @@ body {
 #workshop,
 #contact {
   padding: var(--section-space) var(--page-gutter);
-  scroll-margin-top: 5rem;
+  scroll-margin-top: 4.5rem;
   text-align: center;
 }
 
@@ -188,6 +203,21 @@ body {
 .about-role {
   margin: 0.5rem 0 0;
   font-size: clamp(1.125rem, 3vw, 1.375rem);
+}
+
+.about-copy {
+  max-width: 29rem;
+}
+
+.about-copy h2 {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 400;
+}
+
+.about-copy > p:last-child {
+  margin: 1.25rem 0 0;
+  line-height: 1.6;
 }
 
 .about-content {
@@ -345,8 +375,7 @@ body {
 }
 
 #workshop a,
-.whatsapp-button,
-.contact-alternatives a {
+.whatsapp-button {
   display: inline-block;
   padding: 0.625rem 1.25rem;
   border-radius: 5px;
@@ -386,23 +415,6 @@ footer {
 
 .whatsapp-button:hover {
   background: var(--text-color);
-}
-
-.contact-alternatives {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-  margin: -1.75rem 0 clamp(2.5rem, 6vw, 3.125rem);
-}
-
-.contact-alternatives a {
-  border: 1px solid var(--text-color);
-  color: var(--text-color);
-}
-
-.contact-alternatives a:hover {
-  background: #fff;
 }
 
 .contact-container {
@@ -470,6 +482,28 @@ footer {
   outline-offset: 3px;
 }
 
+.back-to-top {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.625rem 0.875rem;
+  border-radius: 999px;
+  background: var(--text-color);
+  box-shadow: 0 2px 8px #20383840;
+  color: #fff;
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.back-to-top:hover,
+.back-to-top:focus-visible {
+  background: #5a9393;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -494,6 +528,22 @@ footer {
     .site-header nav {
       justify-content: flex-start;
       gap: 0.75rem;
+    }
+
+    #top {
+      height: 9rem;
+    }
+
+    #about,
+    .threecolumncontainer,
+    #pediatrica,
+    #workshop,
+    #contact {
+      scroll-margin-top: 9.5rem;
+    }
+
+    .back-to-top span {
+      display: none;
     }
   }
 
