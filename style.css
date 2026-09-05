@@ -1,25 +1,337 @@
-import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap');
-/* Reset and Base Styles */
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap');
 
-html, body { margin: 0; padding: 0; width: 100%; overflow-x: hidden; }
+:root {
+  --page-gutter: clamp(1rem, 5vw, 4rem);
+  --section-space: clamp(2.5rem, 7vw, 5rem);
+  --text-color: #203838;
+  --accent: #dbeaea;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
 body {
-    font-family: 'Jost', sans-serif;
-    color: #203838;
-    margin: 0;
- }
+  width: 100%;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+body {
+  color: var(--text-color);
+  font-family: 'Jost', sans-serif;
+}
+
+.landing-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#title,
+#imagelanding {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--page-gutter);
+}
+
+#title {
+  min-height: clamp(13rem, 35svh, 22rem);
+  background: var(--accent);
+}
+
+#imagelanding {
+  min-height: clamp(25rem, 65svh, 42rem);
+  background: url(assets/images/Ines-teaser-pic.jpeg) center 70% / cover;
+}
+
+.int {
+  width: min(100%, 50rem);
+  text-align: center;
+}
+
+.logo {
+  display: block;
+  width: min(100%, 18.75rem);
+  height: auto;
+  max-height: 14rem;
+  margin: 0 auto;
+}
+
+#imagelanding .int {
+  padding: clamp(1rem, 4vw, 2.5rem);
+  background: #00000066;
+}
+
+#imagelanding .int * {
+  color: #fff;
+}
+
+#imagelanding h1 {
+  margin: 0;
+  font-size: clamp(2rem, 6vw, 3.125rem);
+}
+
+#imagelanding h2 {
+  font-size: clamp(1.125rem, 3vw, 1.5625rem);
+}
+
+#imagelanding #knowmore {
+  margin-top: clamp(1.5rem, 5vw, 2.5rem);
+  padding: 0.625rem 1.25rem;
+  border: 2px solid #fff;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: clamp(1rem, 3vw, 1.5625rem);
+  transition: background 0.3s ease;
+}
+
+#imagelanding #knowmore:hover {
+  background: #ffffff33;
+}
+
+#about,
+.threecolumncontainer,
+#pediatrica,
+#workshop,
+#contact {
+  padding: var(--section-space) var(--page-gutter);
+  text-align: center;
+}
+
+#about,
+.threecolumncontainer,
+#workshop {
+  background: #f8f8f8;
+}
 
 #about {
-    background: #f8f8f8;
+  font-size: clamp(1.125rem, 3vw, 1.375rem);
+}
+
+.about-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  max-width: 62rem;
+  margin: 0 auto;
+}
+
+.content-photo {
+  display: block;
+  width: min(100%, 24rem);
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+
+.about-photo {
+  aspect-ratio: 3 / 4;
+  object-position: center 55%;
+}
+
+.threecolumncontainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.column {
+  flex: 1 1 17.5rem;
+  width: min(100%, 24rem);
+}
+
+.columnimagecontainer {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 3px;
+  object-fit: cover;
+}
+
+.mission-photo {
+  object-position: center 52%;
+}
+
+.training-photo {
+  object-position: center 42%;
+}
+
+.column h2 {
+  margin: 1.5rem 0 0;
+  font-size: clamp(1.35rem, 3vw, 1.5rem);
+}
+
+.column p,
+#workshop p,
+#pediatrica p {
+  font-size: clamp(1rem, 2.5vw, 1.125rem);
+  line-height: 1.6;
+}
+
+.column p {
+  margin: 1rem 0 0;
+}
+
+#pediatrica {
+  background: #f0f8f8;
+}
+
+#pediatrica .section-intro,
+.reason-list,
+#workshop p {
+  max-width: 50rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#pediatrica .section-intro {
+  margin-bottom: 2.5rem;
+}
+
+.treatment-photo {
+  width: min(100%, 28rem);
+  aspect-ratio: 3 / 4;
+  margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+  object-position: center 58%;
+}
+
+#pediatrica h2,
+#workshop h2,
+#contact h2 {
+  margin: 0 0 1.25rem;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 400;
+}
+
+.reasons-container h3,
+.locations-title {
+  margin: 0 0 1.5rem;
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 400;
+}
+
+.reason-list {
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.reason-list li {
+  position: relative;
+  margin-bottom: 0.9375rem;
+  padding-left: 2rem;
+  font-size: clamp(0.9375rem, 2vw, 1.125rem);
+  line-height: 1.5;
+}
+
+.reason-list li::before {
+  position: absolute;
+  left: 0;
+  color: #5a9393;
+  content: "✔";
+}
+
+#workshop p {
+  margin-bottom: 1.5625rem;
+}
+
+.workshop-photo {
+  aspect-ratio: 4 / 3;
+  margin: 0 auto 1.5625rem;
+  object-position: center 42%;
+}
+
+#workshop a,
+.whatsapp-button {
+  display: inline-block;
+  padding: 0.625rem 1.25rem;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+#workshop a {
+  background: var(--accent);
+  color: var(--text-color);
+}
+
+#workshop a:hover {
+  background: #5a93939c;
+}
+
+#contact,
+footer {
+  background: var(--accent);
+}
+
+.contact-intro {
+  margin: -0.5rem 0 1.25rem;
+  font-size: clamp(1rem, 2.5vw, 1.125rem);
+}
+
+.whatsapp-button {
+  margin-bottom: clamp(2.5rem, 6vw, 3.125rem);
+  background: #5a9393;
+  color: #fff;
+  font-size: clamp(1rem, 2.5vw, 1.0625rem);
+}
+
+.whatsapp-button:hover {
+  background: var(--text-color);
+}
+
+.contact-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1rem, 3vw, 1.875rem);
+}
+
+.contact-card {
+  width: min(100%, 20rem);
+  padding: 1.25rem;
+  border-radius: 8px;
+  background: #f0f8f8;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-card:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transform: translateY(-5px);
+}
+
+.contact-card h3 {
+  margin-top: 0;
+  font-size: 1.375rem;
+}
+
+.contact-card p {
+  line-height: 1.5;
+}
+
+footer {
+  padding: 1.25rem var(--page-gutter);
+  color: var(--text-color);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
 }
 
 .social-icons a {
-  margin-left: 15px;
   text-decoration: none;
 }
 
 .social-icons img {
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
   transition: transform 0.2s ease;
 }
 
@@ -27,449 +339,42 @@ body {
   transform: scale(1.2);
 }
 
-.logo {
-    max-height: 225px;
-    height: auto;
-    width: 100%;
-    max-width: 300px;
-    display: block;
-    margin: 0 auto;
-}
-
-
-.landing-container {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 100vh;
-}
-
-#title {
-  width: 40%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-#imagelanding {
-  width: 60%;
-  background: url(assets/images/pexels-yankrukov-5794027.jpg);
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#imagelanding .int { background: #00000066; }
-#imagelanding .int * { color: #ffffff; }
-#imagelanding .int h1 { font-size: 50px; }
-#imagelanding .int h3 { font-size: 25px; }
-#imagelanding #knowmore {
-    margin-top: 40px;
-    border: 2px solid  #fff;
-    background: none;
-    padding: 10px 20px;
-    font-size: 25px;
-    color: white;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-#imagelanding #knowmore:hover { background: #ffffff33; }
-
-.threecolumncontainer {
-    width: 100vw;
-    position: relative;
-    text-align: center;
-    padding: 40px 0;
-    background: #f8f8f8;
-    display: flex;
+@media (min-width: 50.0625rem) {
+  .landing-container {
     flex-direction: row;
-    flex-wrap: wrap; /* allows wrapping */
+    min-height: 100svh;
+  }
+
+  #title,
+  #imagelanding {
+    min-height: 100svh;
+  }
+
+  #title {
+    flex: 0 1 40%;
+  }
+
+  #imagelanding {
+    flex: 1 1 60%;
+  }
+
+  .about-content {
+    flex-direction: row;
     justify-content: center;
-    gap: 30px;
-}
-.columnimagecontainer {
-    width: 100%;
-    height: 300px;
-    overflow: hidden;
-    position: relative;
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-    border-radius: 3px;
-}
-.column h2 {
-    margin-top: 30px;
-    font-size: 24px;
-    color: #203838;
-}
-.column p {
-    margin-top: 20px;
-    font-size: 16px;
-    color: #203838;
-    line-height: 1.6;
-}
-
-/* Workshop Section */
-#workshop {
-    background: #f8f8f8;
-    color: #203838;
-    padding: 60px 20px;
-    text-align: center;
-}
-#workshop h2 {
-    font-size: 32px;
-    margin: 0 0 20px;
-    font-weight: 400;
-}
-#workshop p {
-    max-width: 650px;
-    margin: 0 auto 25px;
-    font-size: 18px;
-    line-height: 1.6;
-}
-#workshop a {
-    display: inline-block;
-    padding: 10px 20px;
-    background: #DBEAEA;
-    color: #203838;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: background 0.3s ease;
-}
-#workshop a:hover {
-    background: #5a93939c;
-}
-
-/* Contact Section */
-#contact {
-    clear: both;
-    background: #DBEAEA;
-    color: #203838;
-    padding: 60px 20px;
-    text-align: center;
-}
-#contact h2 {
-    font-size: 32px;
-    margin-bottom: 40px;
-    font-weight: 400;
-}
-.contact-intro {
-    font-size: 18px;
-    margin: -20px 0 20px;
-}
-.whatsapp-button {
-    display: inline-block;
-    padding: 12px 24px;
-    margin-bottom: 50px;
-    background: #5a9393;
-    color: #ffffff;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 17px;
-    transition: background 0.3s ease;
-}
-.whatsapp-button:hover {
-    background: #203838;
-}
-.locations-title {
-    font-size: 26px;
-    font-weight: 400;
-    margin: 0 0 30px;
-}
-.contact-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-}
-.contact-card {
-    background: #f0f8f8;
-    padding: 20px;
-    border-radius: 8px;
-    width: 280px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.contact-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-}
-.contact-card h3 {
-    font-size: 22px;
-    margin-bottom: 15px;
-    color: #203838;
-}
-.contact-card p {
-    font-size: 16px;
-    margin-bottom: 20px;
-    color: #203838;
-}
-.contact-card a {
-    display: inline-block;
-    padding: 10px 20px;
-    background: #DBEAEA;
-    color: #203838;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: background 0.3s ease;
-}
-.contact-card a:hover {
-    background: #5a93939c;
-}
-
-
-#pediatrica {
-  background: #f0f8f8;
-  color: #203838;
-  padding: 60px 20px;
-  text-align: center;
-}
-
-#pediatrica .section-intro {
-  max-width: 800px;
-  margin: 0 auto 40px auto;
-}
-
-#pediatrica h2 {
-  font-size: 32px;
-  margin-bottom: 20px;
-}
-
-#pediatrica p {
-  font-size: 18px;
-  line-height: 1.6;
-  color: #203838;
-}
-
-.reasons-container h3 {
-  font-size: 24px;
-  margin-bottom: 30px;
-  color: #203838;
-}
-
-.reason-list {
-  list-style: none;
-  padding: 0;
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: left;
-}
-
-.reason-list li {
-  position: relative;
-  padding-left: 30px;
-  margin-bottom: 15px;
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-.reason-list li::before {
-  content: "✔";
-  position: absolute;
-  left: 0;
-  color: #5a9393;
-  font-size: 16px;
-}
-/* Footer */
-footer {
-    background: #DBEAEA;
-    color: #203838;
-    text-align: center;
-    padding: 20px 20px;
-    padding-right: 50px;
-    font-size: 14px;
-}
-/* Responsive Design */
-@media only screen and (max-width: 800px) {
-
-  .social-icons {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-    visibility: visible;
-    padding-bottom: 20px;
-    }
-
-    .social-icons a {
-        margin: 0 10px;
-    }
-
-    footer {
-        flex-direction: column;
-        align-items: right;
-    }
-
-    .landing-container {
-    flex-direction: column;
-    height: auto;
-    }
-
-    .int {
-        width: 100%;
-        height: 100%;
-        display: table-cell;
-        vertical-align: middle;
-        text-align: center;
-        align-content: center;
-    }
-
-    #title {
-    width: 100%;
-    height: 35vh;
-    background-color: #DBEAEA;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    }
-
-    #imagelanding {
-    width: 100%;
-    height: 80vh;
-    background: url(assets/images/pexels-yankrukov-5794027.jpg);
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    }
-
-    #imagelanding .int {
-        box-sizing: border-box;
-        padding-inline: clamp(16px, 5vw, 40px);
-    }
-
-    .column {
-        width: 80%;
-        margin: 10%;
-        position: relative;
-        display: inline-block;
-        min-height: 50vh;
-        vertical-align: top;
-    }
-    #title .int h3 { font-size: 25px; }
-    #contact h2 { font-size: 28px; }
-    .contact-card { width: 100%; max-width: 300px; }
-}
-
-  #pediatrica {
-    padding: 40px 15px;
+    text-align: left;
   }
 
-  #pediatrica h2 {
-    font-size: 24px;
+  .about-photo {
+    width: min(35%, 20rem);
   }
-
-  #pediatrica p {
-    font-size: 16px;
-  }
-
-  .reasons-container h3 {
-    font-size: 20px;
-  }
-
-  .reason-list li {
-    font-size: 14px;
-    padding-left: 24px;
-  }
-
-  .reason-list li::before {
-    font-size: 14px;
-  }
-
-@media only screen and (min-width: 801px) {
-    .social-icons {
-    display: flex;
-    justify-content: flex-end;
-    align-items: right;
-    visibility: visible;
-    }
-
-    .social-icons a {
-        margin-left: 15px;
-    }
-
-    .logo {
-        max-width: 300px;
-        max-height: 225px;
-        align-content: center;
-    }
-
-    .int {
-        padding: 20px;
-        width: 100%;
-        height: 100%;
-        display: table-cell;
-        vertical-align: middle;
-        text-align: center;
-    }
-
-    .landing-container {
-    flex-direction: column;
-    height: auto;
-    background: #DBEAEA;
-  }
-
-    #title {
-        display: table;
-        width: 100%;
-        height: 50vh;
-        position: relative;
-        float: left;
-        background-color: #DBEAEA;
-    }
-    #imagelanding {
-        display: table;
-        width: 100%;
-        height: 48vh;
-        position: relative;
-        float: right;
-        background: url(assets/images/pexels-yankrukov-5794027.jpg);
-        background-size: cover;
-        background-position: center;
-    }
-    #title .int h3 { font-size: 35px; }
-    .column {
-        width: calc(100% / 3);
-        margin: 0 1.5%;
-        position: relative;
-        display: inline-block;
-        min-height: 60vh;
-        vertical-align: top;
-    }
-    #contact h2 { font-size: 32px; }
-    .contact-card { width: 280px; }
 }
 
-#pediatrica {
-    padding: 80px 40px;
+@media (max-width: 50rem) and (orientation: landscape) {
+  #title {
+    min-height: 12rem;
   }
 
-  #pediatrica h2 {
-    font-size: 36px;
+  #imagelanding {
+    min-height: 20rem;
   }
-
-  #pediatrica p {
-    font-size: 20px;
-  }
-
-  .reasons-container h3 {
-    font-size: 28px;
-  }
-
-  .reason-list li {
-    font-size: 18px;
-    padding-left: 32px;
-  }
-
-  .reason-list li::before {
-    font-size: 18px;
-  }
-
-  footer {
-        flex-direction: column;
-        align-items: right;
-    }
+}
