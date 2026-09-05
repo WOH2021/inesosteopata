@@ -459,13 +459,25 @@ footer {
   background: var(--accent);
 }
 
-.contact-intro {
-  margin: -0.5rem 0 1.25rem;
+#contact {
+  display: grid;
+  align-content: center;
+  gap: clamp(2.5rem, 6vw, 4rem);
+}
+
+.contact-cta {
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+.contact-cta p {
+  margin: -0.5rem 0 1.5rem;
   font-size: clamp(1rem, 2.5vw, 1.125rem);
 }
 
 .whatsapp-button {
-  margin-bottom: clamp(2.5rem, 6vw, 3.125rem);
+  margin: 0;
+  padding: 0.875rem 1.5rem;
   background: #5a9393;
   color: #fff;
   font-size: clamp(1rem, 2.5vw, 1.0625rem);
@@ -476,17 +488,20 @@ footer {
 }
 
 .contact-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 64rem;
+  margin: 0 auto;
   gap: clamp(1rem, 3vw, 1.875rem);
 }
 
 .contact-card {
-  width: min(100%, 20rem);
+  display: block;
   padding: 1.25rem;
   border-radius: 8px;
   background: #f0f8f8;
+  color: var(--text-color);
+  text-decoration: none;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -501,11 +516,14 @@ footer {
 }
 
 .contact-card p {
-  line-height: 1.5;
+  margin: 0.5rem 0 1rem;
 }
 
-.contact-card a {
-  color: inherit;
+.contact-card span {
+  color: #3e7474;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
 }
 
 footer {
@@ -640,6 +658,19 @@ footer {
 
   .column p {
     font-size: 0.9375rem;
+  }
+
+  .contact-container {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .contact-card {
+    padding: 1rem;
+  }
+
+  .contact-card p {
+    margin-bottom: 0.5rem;
   }
 }
 
