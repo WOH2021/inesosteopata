@@ -10,7 +10,6 @@
 
           gtag('config', 'G-R0EE7J2ZZ1');
         </script>
-        <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="4398b777-5034-46cb-8dd5-744858eee3b1" type="text/javascript" async></script>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon/favicon_16x16.png">
@@ -34,7 +33,8 @@
     <a class="brand-link" href="#top" aria-label="Inês Silva Osteopata - início">
       <img class="header-logo" src="assets/images/inesosteologo.png" alt="Inês Silva Osteopata">
     </a>
-    <nav aria-label="Navegação principal">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+    <nav id="primary-nav" aria-label="Navegação principal">
       <a href="#about">Sobre</a>
       <a href="#pediatrica">Osteopatia pediátrica</a>
       <a href="#workshop">Workshop</a>
@@ -151,6 +151,18 @@
       </div>
       <p>Made by Vianexu</p>
     </footer>
+  <script>
+    if (!["localhost", "127.0.0.1"].includes(window.location.hostname)) {
+      const cookiebot = document.createElement("script");
+      cookiebot.id = "Cookiebot";
+      cookiebot.src = "https://consent.cookiebot.com/uc.js";
+      cookiebot.dataset.cbid = "4398b777-5034-46cb-8dd5-744858eee3b1";
+      cookiebot.type = "text/javascript";
+      cookiebot.async = true;
+      document.head.append(cookiebot);
+    }
+  </script>
+  <script src="index.js?v=1.2"></script>
   <script type="application/ld+json">
     {
   "@context": "https://schema.org",

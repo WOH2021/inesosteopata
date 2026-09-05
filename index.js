@@ -1,6 +1,16 @@
-$('#knowmore').on('click', function(e) {
-    e.preventDefault();
-    $('html, body').animate({
-      scrollTop: $('#about').offset().top
-    }, 600); // 600ms scroll duration
+document.addEventListener("DOMContentLoaded", () => {
+  const menuToggle = document.querySelector(".menu-toggle");
+  const primaryNav = document.querySelector("#primary-nav");
+
+  menuToggle.addEventListener("click", () => {
+    const isOpen = primaryNav.classList.toggle("is-open");
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
   });
+
+  primaryNav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      primaryNav.classList.remove("is-open");
+      menuToggle.setAttribute("aria-expanded", "false");
+    });
+  });
+});
