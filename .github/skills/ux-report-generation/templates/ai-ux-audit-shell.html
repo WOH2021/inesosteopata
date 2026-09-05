@@ -1,0 +1,2050 @@
+<!--
+  ai-ux-audit-shell.html — AI UX Audit report template
+  ═══════════════════════════════════════════════════════════════════════════════
+  Part of: ux-report-generation skill (templates/)
+  Consuming skill: ai-ux-audit
+
+  Follows the ux-report-generation contract (9 required sections) with
+  ai-ux-audit-specific extensions (Group Donuts, Quick Wins, Roadmap, By Role).
+
+  Structure:
+    ① Cover (dark banner with meta-grid)
+    — Jump Nav (lightweight section nav, not a contract section)
+    ② Scope & Assumptions
+    ③ Executive Summary
+    ④ Scorecard (standard 4-box + detailed per-heuristic table + group donuts)
+    ⑤ Risk Banner
+    ⑥ Findings (tier-based priority cards with screenshots)
+    ⑦ Priority Remediation Matrix (table format)
+    ⑧ Methodology
+    ⑨ Confidence & Gaps
+    — Quick Wins (ai-ux-audit extension)
+    — Roadmap (ai-ux-audit extension)
+    — Actions by Role (ai-ux-audit extension)
+
+  CSS: Uses ux-report-generation/templates/report-styles.css as the base,
+       with ai-ux-audit-specific additions appended below.
+
+  ═══════════════════════════════════════════════════════════════════════════════
+  PLACEHOLDER REFERENCE
+  ═══════════════════════════════════════════════════════════════════════════════
+  META (Cover)
+    [APP_NAME]        Product name e.g. "GAIA"
+    [AUDIT_DATE]      ISO date     e.g. "2026-05-06"
+    [REVIEWER]        e.g. "GitHub Copilot"
+    [MODEL_TESTED]    e.g. "Claude Sonnet 4.6"
+    [AUDIENCE]        e.g. "All Audiences"
+    [SCOPE]           e.g. "Full · All 6 Groups · 19 Heuristics"
+    [EVIDENCE]        e.g. "Live URL · Playwright · 8 Screenshots"
+    [TOTAL_CHECKS]    e.g. "19"
+
+  SCOPE & ASSUMPTIONS
+    [SCOPE_TEXT]      What was evaluated and what was out of scope
+    [ASSUMPTIONS_TEXT] Assumptions made during evaluation
+
+  EXECUTIVE SUMMARY
+    [EXECUTIVE_SUMMARY_TEXT] 3–5 sentence overview
+
+  SCORECARD (standard)
+    [PASS_COUNT]      Number of passing heuristics
+    [PARTIAL_COUNT]   Number of partial heuristics
+    [FAIL_COUNT]      Number of failing heuristics
+    [UNKNOWN_COUNT]   Number not assessed
+
+  OVERALL HEALTH (extended scorecard)
+    [OVERALL_PCT]     e.g. "34%"
+    [HEALTH_CLASS]    red | amber | green
+    [HEALTH_LABEL]    e.g. "At Risk"
+    [RED_COUNT]       count
+    [AMBER_COUNT]     count
+    [GREEN_COUNT]     count
+    [ALL_COUNT]       total scored  e.g. "19"
+
+  FILTER COUNTS
+    [SC_RED_COUNT]    e.g. "13"
+    [SC_AMBER_COUNT]  e.g. "6"
+    [SC_GREEN_COUNT]  e.g. "0"
+
+  GROUP CARDS → replace [GROUP_CARDS] with 6 cards (see pattern in HTML)
+    [G_ID]            e.g. "1"
+    [G_NAME]          e.g. "Trust & Understanding"
+    [G_HEALTH_CLASS]  red | amber | green
+    [G_HEALTH_LABEL]  Red | Amber | Green
+    [G_PCT]           e.g. "38%"
+    [G_DONUT_DASH]    arc = 251.327 × (pct/100)  e.g. 38% → "95.504"
+    [G_DONUT_COLOR]   hex matching health class
+    [G_CHIPS]         <span class="h-chip [H_HEALTH_CLASS]" title="[H_NAME]">[H_ID]</span> …
+
+  SCORECARD TABLE → replace [SCORECARD_ROWS] (see row pattern)
+    [H_ID]            e.g. "1.1"
+    [H_NAME]          e.g. "AI Reasoning Visible"
+    [H_PASS]          count or "-"
+    [H_PARTIAL]       count or "-"
+    [H_FAIL]          count or "-"
+    [H_SCORE_PCT]     e.g. "60%"
+    [H_SCORE_WIDTH]   same value for bar width
+    [H_HEALTH_CLASS]  red | amber | green
+    [H_HEALTH_LABEL]  Red | Amber | Green
+
+  RISK BANNER
+    [RISK_CLASS]      critical | high | medium | low
+    [RISK_ICON]       Emoji icon (🔴 🟠 🟡 🟢)
+    [RISK_LABEL]      Critical | High | Medium | Low
+    [RISK_DESCRIPTION] One sentence describing overall risk
+
+  FINDINGS / PRIORITY → replace [PRIORITY_TIERS]
+    [F_TITLE]         e.g. "2.2 Feedback"
+    [F_CLASS]         "" | "finding-card-high" | "finding-card-roadmap"
+    [F_FINDING]       1–2 sentence finding
+    [F_RISK]          risk statement
+    [F_OWNER]         e.g. "Product + Dev"
+    [F_EFFORT_CLASS]  low | medium | high
+    [F_EFFORT]        Low | Medium | High
+    [F_ACTION]        recommended action (optional)
+    [F_SCREENSHOT]    relative path e.g. "screenshots/finding-2-2.png" (optional)
+    [F_SCREENSHOT_ALT] alt text
+
+  PRIORITY REMEDIATION MATRIX → replace [MATRIX_ROWS]
+    [PRIORITY_TIER]   P0 | P1 | P2 | P3
+    [ISSUE_TITLE]     Short issue title
+    [CATEGORY]        Category/group name
+    [SEVERITY_LABEL]  Critical | High | Medium | Low
+    [EFFORT_LABEL]    S | M | L
+    [RECOMMENDED_ACTION] Brief action item
+
+  METHODOLOGY
+    [FRAMEWORK_DESCRIPTION]  e.g. "AI UX Design Heuristics — 6 groups, 19 heuristics"
+    [EVALUATION_APPROACH]    e.g. "Live URL audited using Playwright"
+
+  CONFIDENCE & GAPS
+    [CONFIDENCE_LEVEL]      High | Medium | Low
+    [CONFIDENCE_NARRATIVE]  1–2 sentences
+    [GAPS_TEXT]             What could not be assessed
+
+  QUICK WINS → replace [WIN_ITEMS] with <li> elements
+    [WIN_TEXT]        e.g. "Add thumbs up/down feedback (2.2)"
+
+  ROADMAP → replace [ROADMAP_ITEMS] with <li> elements
+    e.g. <li>Data use notice at session start — Medium (5.1)</li>
+
+  BY ROLE → replace [ROLE_CARDS] with 4 role-card divs
+    [ROLE_COLOR]    hex; suggested: Business #037493, Product #185f28, UX #744b00, Dev #005499
+    [ROLE_INITIAL]  single letter
+    [ROLE_NAME]     full role name
+    [ROLE_BODY]     prose or <ul> list of actions
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>[APP_NAME] — AI UX Heuristics Audit Report</title>
+    <style>
+      /* ═══════════════════════════════════════════════════════════════════════════
+   BASE: ux-report-generation/templates/report-styles.css (inlined)
+   ═══════════════════════════════════════════════════════════════════════════ */
+      @page {
+        size: A4;
+        margin: 1.5cm;
+      }
+
+      :root {
+        /* ── Density Primitive Color Tokens ─────────────────────── */
+        --color-red-100: #ffefef;
+        --color-red-200: #ffd4d4;
+        --color-red-600: #df001a;
+        --color-red-700: #aa0014;
+
+        --color-green-100: #e5fceb;
+        --color-green-200: #9ff7b7;
+        --color-green-600: #2a813f;
+        --color-green-700: #185f28;
+
+        --color-yellow-100: #fff7de;
+        --color-yellow-200: #ffe38e;
+        --color-yellow-700: #744b00;
+
+        --color-blue-100: #ecf3ff;
+        --color-blue-600: #0071c5;
+        --color-blue-700: #005499;
+
+        /* Ocean — action / interactive (Density color-surface-action-strong) */
+        --color-ocean-100: #e0f2ff;
+        --color-ocean-600: #037493;
+        --color-ocean-700: #035970;
+
+        --color-grey-100: #f5f6f6;
+        --color-cool-grey-200: #dcdee1;
+        --color-cool-grey-600: #69707a;
+        --color-cool-grey-900: #1f2328;
+
+        /* ── Density Semantic Surface Tokens ────────────────────── */
+        --color-surface-page: var(--color-grey-100);
+        --color-surface-base: #ffffff;
+        --color-surface-critical: var(--color-red-100);
+        --color-surface-positive: var(--color-green-100);
+        --color-surface-caution: var(--color-yellow-100);
+        --color-surface-info: var(--color-blue-100);
+        --color-surface-invert: var(--color-cool-grey-900);
+
+        /* ── Density Semantic Border Tokens ─────────────────────── */
+        --color-border-neutral: var(--color-cool-grey-200);
+        --color-border-critical: var(--color-red-200);
+        --color-border-positive: var(--color-green-200);
+        --color-border-caution: var(--color-yellow-200);
+
+        /* ── Density Semantic Typography Tokens ─────────────────── */
+        --color-typography-base: var(--color-cool-grey-900);
+        --color-typography-critical: var(--color-red-700);
+        --color-typography-positive: var(--color-green-700);
+        --color-typography-caution: var(--color-yellow-700);
+
+        /* ── Report Semantic Aliases ─────────────────────────────── */
+        --severity-critical: var(--color-red-600);
+        --severity-high: var(--color-red-600);
+        --severity-medium: var(--color-yellow-700);
+        --severity-low: var(--color-green-600);
+
+        --status-pass: var(--color-green-700);
+        --status-partial: var(--color-yellow-700);
+        --status-fail: var(--color-red-600);
+        --status-unknown: var(--color-cool-grey-600);
+
+        /* Action alias */
+        --color-action: var(--color-ocean-600);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.43;
+        color: var(--color-typography-base);
+        background: var(--color-surface-page);
+      }
+
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      /* ── Cover ─────────────────────────────────────────────────── */
+      .cover {
+        background: var(--color-surface-invert);
+        color: #ffffff;
+        padding: 3rem 2.5rem;
+        border-radius: 2px;
+        margin-bottom: 0;
+        max-width: 960px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 2rem;
+      }
+      .cover h1 {
+        font-family:
+          "BMWGroupTNCondensedPro-Medium",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          Helvetica,
+          Arial,
+          sans-serif;
+        font-size: 2rem;
+        margin-bottom: 0.4rem;
+        letter-spacing: -0.5px;
+      }
+      .cover .subtitle {
+        font-size: 1.05rem;
+        opacity: 0.8;
+        margin-bottom: 2rem;
+      }
+      .cover .meta-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 180px));
+        gap: 0.8rem;
+        margin-top: 1.5rem;
+      }
+      .cover .meta-item {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 2px;
+        padding: 0.75rem 1rem;
+      }
+      .cover .meta-item .label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        opacity: 0.6;
+      }
+      .cover .meta-item .value {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-top: 0.15rem;
+        word-break: break-word;
+      }
+
+      /* ── Section headings ───────────────────────────────────────── */
+      .section {
+        margin: 2rem 0;
+        scroll-margin-top: 60px;
+      }
+      .section-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--color-typography-base);
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--color-border-neutral);
+      }
+
+      /* ── Executive Summary ──────────────────────────────────────── */
+      .executive-summary {
+        background: var(--color-surface-info);
+        border-left: 4px solid var(--color-action);
+        border-radius: 0 2px 2px 0;
+        padding: 1.2rem 1.5rem;
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+      }
+      .executive-summary h3 {
+        color: var(--color-action);
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+
+      /* ── Scorecard (standard 4-box) ─────────────────────────────── */
+      .scorecard {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 0.8rem;
+        margin-bottom: 1.5rem;
+      }
+      .score-box {
+        background: var(--color-surface-base);
+        border-radius: 2px;
+        padding: 1.2rem;
+        text-align: center;
+        border: 2px solid var(--color-border-neutral);
+      }
+      .score-box .count {
+        font-size: 2.2rem;
+        font-weight: 800;
+      }
+      .score-box .label {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin-top: 0.25rem;
+        color: var(--color-cool-grey-600);
+      }
+      .score-box.pass {
+        border-color: var(--status-pass);
+      }
+      .score-box.pass .count {
+        color: var(--status-pass);
+      }
+      .score-box.partial {
+        border-color: var(--status-partial);
+      }
+      .score-box.partial .count {
+        color: var(--status-partial);
+      }
+      .score-box.fail {
+        border-color: var(--status-fail);
+      }
+      .score-box.fail .count {
+        color: var(--status-fail);
+      }
+      .score-box.unknown {
+        border-color: var(--status-unknown);
+      }
+      .score-box.unknown .count {
+        color: var(--status-unknown);
+      }
+
+      /* ── Risk Banner ────────────────────────────────────────────── */
+      .risk-banner {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 1.5rem;
+        border-radius: 2px;
+        margin: 1.5rem 0;
+        color: #ffffff;
+      }
+      .risk-banner.critical {
+        background: var(--severity-critical);
+      }
+      .risk-banner.high {
+        background: var(--severity-high);
+      }
+      .risk-banner.medium {
+        background: var(--color-yellow-700);
+      }
+      .risk-banner.low {
+        background: var(--severity-low);
+      }
+      .risk-banner .icon {
+        font-size: 1.8rem;
+        flex-shrink: 0;
+      }
+      .risk-banner .text .risk-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin: 0 0 0.2rem;
+      }
+      .risk-banner .text p {
+        font-size: 0.9rem;
+        opacity: 0.92;
+      }
+
+      /* ── Category / Finding cards ───────────────────────────────── */
+      .category {
+        margin: 2rem 0;
+        page-break-inside: avoid;
+      }
+      .category-header {
+        background: var(--color-action);
+        color: #ffffff;
+        padding: 0.9rem 1.3rem;
+        border-radius: 2px 2px 0 0;
+      }
+      .category-header h3 {
+        font-size: 1.1rem;
+      }
+      .category-header p {
+        font-size: 0.85rem;
+        opacity: 0.85;
+        margin-top: 0.2rem;
+      }
+
+      .finding {
+        background: var(--color-surface-base);
+        border: 1px solid var(--color-border-neutral);
+        margin-bottom: 0.5rem;
+        overflow: hidden;
+        page-break-inside: avoid;
+      }
+      .finding:last-child {
+        border-radius: 0 0 2px 2px;
+      }
+
+      .finding-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 0.9rem 1.3rem;
+        border-bottom: 1px solid var(--color-border-neutral);
+        background: var(--color-surface-page);
+      }
+      .finding-header h4 {
+        font-size: 1rem;
+      }
+      .finding-badges {
+        display: flex;
+        gap: 0.4rem;
+        flex-wrap: wrap;
+      }
+
+      .finding-body {
+        padding: 1.3rem;
+      }
+      .finding-body p {
+        margin-bottom: 0.75rem;
+        font-size: 0.9rem;
+      }
+
+      .evidence {
+        background: var(--color-surface-info);
+        border-left: 4px solid var(--color-action);
+        border-radius: 0 2px 2px 0;
+        padding: 0.8rem 1rem;
+        margin: 0.8rem 0;
+        font-size: 0.875rem;
+      }
+      .evidence strong {
+        color: var(--color-action);
+      }
+
+      .recommendation {
+        background: var(--color-surface-positive);
+        border-left: 4px solid var(--status-pass);
+        border-radius: 0 2px 2px 0;
+        padding: 0.8rem 1rem;
+        margin: 0.8rem 0;
+        font-size: 0.875rem;
+      }
+      .recommendation strong {
+        color: var(--status-pass);
+      }
+
+      /* ── Badges ─────────────────────────────────────────────────── */
+      .badge {
+        display: inline-block;
+        padding: 0.2rem 0.65rem;
+        border-radius: 9999px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+      }
+      .badge.pass {
+        background: var(--status-pass);
+        color: #ffffff;
+      }
+      .badge.partial {
+        background: var(--status-partial);
+        color: #ffffff;
+      }
+      .badge.fail {
+        background: var(--status-fail);
+        color: #ffffff;
+      }
+      .badge.unknown {
+        background: var(--status-unknown);
+        color: #ffffff;
+      }
+      .badge.critical {
+        background: var(--severity-critical);
+        color: #ffffff;
+      }
+      .badge.high {
+        background: var(--severity-high);
+        color: #ffffff;
+      }
+      .badge.medium {
+        background: var(--color-yellow-200);
+        color: var(--color-cool-grey-900);
+      }
+      .badge.low {
+        background: var(--severity-low);
+        color: #ffffff;
+      }
+      .badge.effort-s {
+        background: var(--color-surface-info);
+        color: var(--color-blue-700);
+        border: 1px solid var(--color-blue-700);
+      }
+      .badge.effort-m {
+        background: var(--color-surface-caution);
+        color: var(--color-yellow-700);
+        border: 1px solid var(--color-yellow-700);
+      }
+      .badge.effort-l {
+        background: var(--color-surface-critical);
+        color: var(--severity-critical);
+        border: 1px solid var(--severity-critical);
+      }
+
+      /* ── Screenshot block ───────────────────────────────────────── */
+      .screenshot {
+        margin: 1rem 0;
+        border: 2px solid var(--color-border-neutral);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .screenshot img {
+        width: 100%;
+        display: block;
+      }
+      .screenshot-caption {
+        background: var(--color-surface-invert);
+        color: #ffffff;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+      }
+
+      /* ── Remediation Matrix ─────────────────────────────────────── */
+      .matrix-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.875rem;
+        margin-top: 0.75rem;
+      }
+      .matrix-table th {
+        background: var(--color-surface-invert);
+        color: #ffffff;
+        padding: 0.6rem 0.9rem;
+        text-align: left;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .matrix-table td {
+        padding: 0.6rem 0.9rem;
+        border-bottom: 1px solid var(--color-border-neutral);
+        vertical-align: top;
+      }
+      .matrix-table tr:nth-child(even) td {
+        background: var(--color-surface-page);
+      }
+      .matrix-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .priority-tag {
+        display: inline-block;
+        padding: 0.15rem 0.5rem;
+        border-radius: 2px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      .priority-tag.p0 {
+        background: var(--severity-critical);
+        color: #ffffff;
+      }
+      .priority-tag.p1 {
+        background: var(--severity-high);
+        color: #ffffff;
+      }
+      .priority-tag.p2 {
+        background: var(--color-yellow-200);
+        color: var(--color-cool-grey-900);
+      }
+      .priority-tag.p3 {
+        background: var(--color-cool-grey-200);
+        color: var(--color-cool-grey-900);
+      }
+
+      /* ── Methodology ────────────────────────────────────────────── */
+      .methodology-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 0.8rem;
+        margin-top: 0.75rem;
+      }
+      .methodology-card {
+        background: var(--color-surface-base);
+        border: 1px solid var(--color-border-neutral);
+        border-radius: 2px;
+        padding: 1rem;
+      }
+      .methodology-card h5 {
+        font-size: 0.85rem;
+        color: var(--color-action);
+        margin-bottom: 0.4rem;
+      }
+      .methodology-card p {
+        font-size: 0.8rem;
+        color: var(--color-cool-grey-600);
+      }
+
+      /* ── Skip Link ──────────────────────────────────────────────── */
+      .skip-link {
+        position: absolute;
+        top: -100%;
+        left: 0;
+        background: var(--color-action);
+        color: #ffffff;
+        padding: 0.5rem 1rem;
+        text-decoration: none;
+        font-size: 0.875rem;
+        font-weight: 600;
+        z-index: 9999;
+        border-radius: 0 0 2px 0;
+      }
+      .skip-link:focus {
+        top: 0;
+      }
+
+      /* ── Utility ────────────────────────────────────────────────── */
+      .page-break {
+        page-break-after: always;
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════════
+   EXTENSIONS: ai-ux-audit-specific styles (appended to base)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+      /* ── Jump Nav ───────────────────────────────────────────────── */
+      .report-nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(245, 246, 246, 0.95);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--color-border-neutral);
+        display: flex;
+        align-items: center;
+        padding: 0 2rem;
+        overflow-x: auto;
+        gap: 2px;
+      }
+      .report-nav .nav-brand {
+        font-family:
+          "BMWGroupTNCondensedPro-Medium",
+          -apple-system,
+          sans-serif;
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--color-ocean-700);
+        padding: 13px 20px 13px 0;
+        border-right: 1px solid var(--color-border-neutral);
+        margin-right: 8px;
+        white-space: nowrap;
+        letter-spacing: 0.03em;
+      }
+      .report-nav a {
+        padding: 13px 14px;
+        font-size: 11px;
+        color: var(--color-cool-grey-600);
+        text-decoration: none;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border-bottom: 2px solid transparent;
+        transition:
+          color 0.2s,
+          border-color 0.2s;
+        white-space: nowrap;
+        font-weight: 500;
+      }
+      .report-nav a:hover {
+        color: var(--color-typography-base);
+      }
+      .report-nav a.active {
+        color: var(--color-ocean-700);
+        border-bottom-color: var(--color-action);
+      }
+
+      /* ── Overall Health Banner ──────────────────────────────────── */
+      .ob {
+        background: var(--color-surface-base);
+        border: 1px solid var(--color-cool-grey-200);
+        border-radius: 2px;
+        padding: 18px 24px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 1.5rem;
+      }
+      .ob.red {
+        border-color: var(--color-border-critical);
+        border-left: 4px solid var(--color-red-700);
+      }
+      .ob.amber {
+        border-color: var(--color-border-caution);
+        border-left: 4px solid var(--color-yellow-700);
+      }
+      .ob.green {
+        border-color: var(--color-border-positive);
+        border-left: 4px solid var(--color-green-700);
+      }
+      .ob-score {
+        font-size: 42px;
+        font-weight: 600;
+        font-family: "BMWGroupTNCondensedPro-Medium", monospace;
+      }
+      .ob.red .ob-score {
+        color: var(--color-red-700);
+      }
+      .ob.amber .ob-score {
+        color: var(--color-yellow-700);
+      }
+      .ob.green .ob-score {
+        color: var(--color-green-700);
+      }
+      .ob-info .ob-l {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--color-cool-grey-600);
+        margin-bottom: 2px;
+        font-weight: 600;
+      }
+      .ob-info .ob-v {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--color-typography-base);
+      }
+
+      /* ── Health Count Cards ─────────────────────────────────────── */
+      .ov-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-bottom: 1.5rem;
+      }
+      @media (max-width: 640px) {
+        .ov-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .ov-card {
+        background: var(--color-surface-base);
+        border: 1px solid var(--color-border-neutral);
+        border-radius: 2px;
+        padding: 24px;
+      }
+      .ov-card.red {
+        border-color: var(--color-border-critical);
+        background: var(--color-surface-critical);
+        border-left: 4px solid var(--color-red-700);
+      }
+      .ov-card.amber {
+        border-color: var(--color-border-caution);
+        background: var(--color-surface-caution);
+        border-left: 4px solid var(--color-yellow-700);
+      }
+      .ov-card.green {
+        border-color: var(--color-border-positive);
+        background: var(--color-surface-positive);
+        border-left: 4px solid var(--color-green-700);
+      }
+      .ov-num {
+        font-size: 52px;
+        font-weight: 500;
+        line-height: 1;
+        margin-bottom: 4px;
+        font-family: "BMWGroupTNCondensedPro-Medium", monospace;
+      }
+      .ov-card.red .ov-num {
+        color: var(--color-red-700);
+      }
+      .ov-card.amber .ov-num {
+        color: var(--color-yellow-700);
+      }
+      .ov-card.green .ov-num {
+        color: var(--color-green-700);
+      }
+      .ov-label {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--color-cool-grey-600);
+        margin-bottom: 4px;
+        font-weight: 600;
+      }
+      .ov-sub {
+        font-size: 12px;
+        color: var(--color-cool-grey-600);
+      }
+
+      /* ── Group Summary Cards with SVG Donut ─────────────────────── */
+      .g-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+        gap: 14px;
+      }
+      .group-card {
+        background: var(--color-surface-base);
+        border: 1px solid var(--color-border-neutral);
+        border-radius: 2px;
+        padding: 18px 14px;
+        text-align: center;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .group-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .group-card.red {
+        border-color: var(--color-border-critical);
+        background: var(--color-surface-critical);
+        border-top: 3px solid var(--color-red-700);
+      }
+      .group-card.amber {
+        border-color: var(--color-border-caution);
+        background: var(--color-surface-caution);
+        border-top: 3px solid var(--color-yellow-700);
+      }
+      .group-card.green {
+        border-color: var(--color-border-positive);
+        background: var(--color-surface-positive);
+        border-top: 3px solid var(--color-green-700);
+      }
+      .group-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 6px;
+      }
+      .group-id {
+        font-size: 11px;
+        color: var(--color-action);
+        font-weight: 700;
+      }
+      .group-badge {
+        font-size: 9px;
+        padding: 1px 8px;
+        border-radius: 9999px;
+        font-weight: 600;
+      }
+      .group-badge.red {
+        background: #fff;
+        color: var(--color-red-700);
+        border: 1px solid var(--color-border-critical);
+      }
+      .group-badge.amber {
+        background: #fff;
+        color: var(--color-yellow-700);
+        border: 1px solid var(--color-border-caution);
+      }
+      .group-badge.green {
+        background: #fff;
+        color: var(--color-green-700);
+        border: 1px solid var(--color-border-positive);
+      }
+      .group-name {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--color-typography-base);
+        margin-bottom: 10px;
+        line-height: 1.4;
+      }
+      .donut {
+        width: 76px;
+        height: 76px;
+        margin: 0 auto 10px;
+      }
+      .group-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3px;
+        justify-content: center;
+      }
+      .h-chip {
+        font-size: 9px;
+        padding: 1px 5px;
+        border-radius: 3px;
+        cursor: default;
+        font-weight: 600;
+      }
+      .h-chip.red {
+        background: #fff;
+        color: var(--color-red-700);
+        border: 1px solid var(--color-border-critical);
+      }
+      .h-chip.amber {
+        background: #fff;
+        color: var(--color-yellow-700);
+        border: 1px solid var(--color-border-caution);
+      }
+      .h-chip.green {
+        background: #fff;
+        color: var(--color-green-700);
+        border: 1px solid var(--color-border-positive);
+      }
+      .h-chip.unknown {
+        background: var(--color-surface-page);
+        color: var(--color-cool-grey-600);
+        border: 1px solid var(--color-border-neutral);
+      }
+
+      /* ── Detailed Scorecard Table ───────────────────────────────── */
+      .filters {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+      }
+      .f-btn {
+        font-size: 10px;
+        padding: 4px 14px;
+        border-radius: 9999px;
+        border: 1px solid var(--color-cool-grey-600);
+        background: var(--color-surface-base);
+        color: var(--color-cool-grey-600);
+        cursor: pointer;
+        transition: all 0.15s;
+        letter-spacing: 0.06em;
+        font-weight: 500;
+      }
+      .f-btn:hover {
+        border-color: var(--color-action);
+        color: var(--color-action);
+      }
+      .f-btn.active {
+        border-color: var(--color-action);
+        color: var(--color-action);
+        background: rgba(3, 116, 147, 0.07);
+        font-weight: 600;
+      }
+      .f-btn.r.active {
+        border-color: var(--color-red-700);
+        color: var(--color-red-700);
+        background: var(--color-surface-critical);
+      }
+      .f-btn.a.active {
+        border-color: var(--color-yellow-700);
+        color: var(--color-yellow-700);
+        background: var(--color-surface-caution);
+      }
+      .f-btn.g.active {
+        border-color: var(--color-green-700);
+        color: var(--color-green-700);
+        background: var(--color-surface-positive);
+      }
+      .table-wrap {
+        overflow-x: auto;
+        border-radius: 2px;
+        border: 1px solid var(--color-border-neutral);
+      }
+      table.sc {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      table.sc thead tr {
+        background: var(--color-surface-page);
+        border-bottom: 2px solid var(--color-cool-grey-600);
+      }
+      table.sc th {
+        padding: 10px 14px;
+        text-align: left;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.09em;
+        color: var(--color-cool-grey-600);
+        white-space: nowrap;
+        font-weight: 600;
+      }
+      table.sc td {
+        padding: 11px 14px;
+        border-bottom: 1px solid var(--color-border-neutral);
+        vertical-align: middle;
+        background: var(--color-surface-base);
+      }
+      table.sc tr:last-child td {
+        border-bottom: none;
+      }
+      table.sc tr.red-row:hover td {
+        background: var(--color-surface-critical);
+      }
+      table.sc tr.amber-row:hover td {
+        background: var(--color-surface-caution);
+      }
+      table.sc tr.green-row:hover td {
+        background: var(--color-surface-positive);
+      }
+      .id-chip {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--color-action);
+        background: rgba(3, 116, 147, 0.08);
+        padding: 2px 8px;
+        border-radius: 4px;
+        border: 1px solid rgba(3, 116, 147, 0.18);
+      }
+      .td-name {
+        font-size: 13px;
+        color: var(--color-typography-base);
+      }
+      .td-num {
+        text-align: center;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .pass-col {
+        color: var(--color-green-700);
+      }
+      .partial-col {
+        color: var(--color-yellow-700);
+      }
+      .fail-col {
+        color: var(--color-red-700);
+      }
+      .td-bar {
+        min-width: 160px;
+      }
+      .score-bar-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .score-bar-track {
+        flex: 1;
+        height: 5px;
+        background: var(--color-border-neutral);
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .score-bar-fill {
+        height: 100%;
+        border-radius: 3px;
+      }
+      .score-bar-fill.red {
+        background: var(--color-red-700);
+      }
+      .score-bar-fill.amber {
+        background: var(--color-yellow-700);
+      }
+      .score-bar-fill.green {
+        background: var(--color-green-700);
+      }
+      .score-val {
+        font-size: 11px;
+        width: 40px;
+        text-align: right;
+        white-space: nowrap;
+        font-weight: 600;
+      }
+      .score-val.red {
+        color: var(--color-red-700);
+      }
+      .score-val.amber {
+        color: var(--color-yellow-700);
+      }
+      .score-val.green {
+        color: var(--color-green-700);
+      }
+      .score-na {
+        color: var(--color-cool-grey-600);
+        font-size: 11px;
+      }
+      .h-badge {
+        font-size: 9px;
+        padding: 3px 10px;
+        border-radius: 9999px;
+        font-weight: 700;
+      }
+      .h-badge.red {
+        background: var(--color-surface-critical);
+        color: var(--color-red-700);
+        border: 1px solid var(--color-border-critical);
+      }
+      .h-badge.amber {
+        background: var(--color-surface-caution);
+        color: var(--color-yellow-700);
+        border: 1px solid var(--color-border-caution);
+      }
+      .h-badge.green {
+        background: var(--color-surface-positive);
+        color: var(--color-green-700);
+        border: 1px solid var(--color-border-positive);
+      }
+      .h-badge.unknown {
+        background: var(--color-surface-page);
+        color: var(--color-cool-grey-600);
+        border: 1px solid var(--color-border-neutral);
+      }
+
+      /* ── Priority Tier Blocks (Findings section) ────────────────── */
+      .tier-block {
+        margin-bottom: 32px;
+      }
+      .tier-header-label {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 6px 14px;
+        border-radius: 9999px;
+        display: inline-block;
+        margin-bottom: 14px;
+      }
+      .tier-critical .tier-header-label {
+        background: var(--color-surface-critical);
+        color: var(--color-red-700);
+        border: 1px solid var(--color-border-critical);
+      }
+      .tier-high .tier-header-label {
+        background: var(--color-surface-caution);
+        color: var(--color-yellow-700);
+        border: 1px solid var(--color-border-caution);
+      }
+      .tier-roadmap .tier-header-label {
+        background: var(--color-surface-info);
+        color: var(--color-blue-700);
+        border: 1px solid var(--color-blue-700);
+      }
+      .findings-grid {
+        display: grid;
+        gap: 14px;
+      }
+      .finding-card {
+        background: var(--color-surface-base);
+        border: 1px solid var(--color-border-neutral);
+        border-left: 4px solid var(--color-red-700);
+        border-radius: 2px;
+        padding: 20px 22px;
+        page-break-inside: avoid;
+      }
+      .finding-card-high {
+        border-left-color: var(--color-yellow-700);
+      }
+      .finding-card-roadmap {
+        border-left-color: var(--color-blue-700);
+      }
+      .finding-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--color-typography-base);
+        margin-bottom: 12px;
+      }
+      .f-row {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 8px;
+        font-size: 13px;
+        align-items: flex-start;
+      }
+      .f-label {
+        font-size: 9px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--color-cool-grey-600);
+        width: 64px;
+        flex-shrink: 0;
+        padding-top: 3px;
+        font-weight: 600;
+      }
+      .f-val {
+        color: var(--color-typography-base);
+      }
+      .risk .f-val {
+        color: var(--color-red-700);
+        font-weight: 600;
+      }
+      .f-chips {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin: 8px 0;
+      }
+      .owner-chip {
+        background: var(--color-surface-info);
+        color: var(--color-blue-700);
+        border: 1px solid var(--color-blue-700);
+        padding: 1px 10px;
+        border-radius: 9999px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .effort-chip {
+        padding: 1px 10px;
+        border-radius: 9999px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .effort-chip.low {
+        background: var(--color-surface-positive);
+        color: var(--color-green-700);
+        border: 1px solid var(--color-border-positive);
+      }
+      .effort-chip.medium {
+        background: var(--color-surface-caution);
+        color: var(--color-yellow-700);
+        border: 1px solid var(--color-border-caution);
+      }
+      .effort-chip.high {
+        background: var(--color-surface-critical);
+        color: var(--color-red-700);
+        border: 1px solid var(--color-border-critical);
+      }
+      .action-row {
+        background: rgba(3, 116, 147, 0.05);
+        border: 1px solid rgba(3, 116, 147, 0.12);
+        border-left: 3px solid var(--color-action);
+        border-radius: 2px;
+        padding: 10px 12px;
+        margin-top: 10px;
+        display: flex;
+        gap: 10px;
+        font-size: 13px;
+      }
+      .action-row span:last-child {
+        color: var(--color-ocean-700);
+        font-weight: 500;
+      }
+      .finding-screenshot {
+        margin-top: 12px;
+        border: 1px solid var(--color-border-neutral);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .finding-screenshot img {
+        width: 100%;
+        display: block;
+      }
+
+      /* ── Quick Wins ─────────────────────────────────────────────── */
+      .wins-list {
+        list-style: none;
+        display: grid;
+        gap: 8px;
+      }
+      .wins-list li {
+        background: var(--color-surface-base);
+        border: 1px solid var(--color-border-positive);
+        border-radius: 2px;
+        padding: 13px 16px;
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        font-size: 13px;
+        color: var(--color-typography-base);
+        transition: background 0.15s;
+      }
+      .wins-list li:hover {
+        background: var(--color-surface-positive);
+      }
+      .win-icon {
+        font-size: 10px;
+        color: var(--color-green-700);
+        font-weight: 700;
+        background: var(--color-surface-positive);
+        border: 1px solid var(--color-border-positive);
+        padding: 1px 6px;
+        border-radius: 4px;
+        margin-top: 2px;
+        flex-shrink: 0;
+      }
+
+      /* ── By Role ────────────────────────────────────────────────── */
+      .role-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 16px;
+      }
+      .role-card {
+        background: var(--color-surface-base);
+        border: 1px solid var(--color-border-neutral);
+        border-top: 3px solid var(--rc, var(--color-action));
+        border-radius: 2px;
+        padding: 18px 20px;
+      }
+      .role-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+      .role-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .role-name {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--color-typography-base);
+      }
+      .role-body {
+        font-size: 12px;
+        color: var(--color-typography-base);
+        line-height: 1.7;
+      }
+      .role-body ul {
+        padding-left: 14px;
+        margin: 4px 0;
+      }
+      .role-body li {
+        margin-bottom: 3px;
+      }
+      .role-body strong {
+        font-weight: 700;
+      }
+
+      /* ── Prose ──────────────────────────────────────────────────── */
+      .prose {
+        font-size: 13px;
+        line-height: 1.8;
+        color: var(--color-typography-base);
+      }
+      .prose ul {
+        padding-left: 16px;
+        margin: 6px 0;
+      }
+      .prose li {
+        margin-bottom: 4px;
+      }
+      .prose strong {
+        font-weight: 700;
+      }
+
+      /* ── Footer ─────────────────────────────────────────────────── */
+      .report-footer {
+        margin-top: 3rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--color-border-neutral);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+        font-size: 10px;
+        color: var(--color-cool-grey-600);
+      }
+
+      /* ── Animations ─────────────────────────────────────────────── */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .section {
+        animation: fadeUp 0.35s ease both;
+      }
+      .finding-card,
+      .ov-card,
+      .group-card {
+        animation: fadeUp 0.3s ease both;
+      }
+
+      /* ── Print ──────────────────────────────────────────────────── */
+      @media print {
+        .report-nav {
+          display: none;
+        }
+        .cover {
+          page-break-after: always;
+        }
+        .finding-card {
+          break-inside: avoid;
+        }
+        .ov-card,
+        .group-card,
+        .role-card {
+          box-shadow: none;
+        }
+        body {
+          font-size: 12px;
+        }
+        .jira-copy-btn {
+          display: none !important;
+        }
+      }
+
+      /* ── Motion ─────────────────────────────────────────────────── */
+      @media (prefers-reduced-motion: reduce) {
+        .section,
+        .finding-card,
+        .ov-card,
+        .group-card {
+          animation: none;
+        }
+        .group-card {
+          transition: none;
+        }
+        .jira-copy-btn {
+          transition: none;
+        }
+      }
+
+      /* ── Jira Copy Button ───────────────────────────────────────── */
+      .jira-copy-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        margin-top: 0.75rem;
+        padding: 0.4rem 0.9rem;
+        background: var(--color-surface-base);
+        color: var(--color-action);
+        border: 1px solid var(--color-action);
+        border-radius: 2px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .jira-copy-btn:hover {
+        background: var(--color-ocean-100);
+      }
+      .jira-copy-btn:focus-visible {
+        outline: 2px solid var(--color-action);
+        outline-offset: 2px;
+      }
+      .jira-copy-btn.copied {
+        background: var(--color-surface-positive);
+        color: var(--status-pass);
+        border-color: var(--status-pass);
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- ═══════════════════════════════════════════════════════
+  JUMP NAV — lightweight section navigation (not a contract section)
+═══════════════════════════════════════════════════════ -->
+    <nav class="report-nav" role="navigation" aria-label="Jump to section">
+      <span class="nav-brand">AI UX Audit</span>
+      <a href="#scorecard">Scorecard</a>
+      <a href="#findings">Findings</a>
+      <a href="#remediation">Remediation</a>
+      <a href="#quick-wins">Quick Wins</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#roles">By Role</a>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════════════════
+  ① COVER — dark banner with product metadata
+═══════════════════════════════════════════════════════ -->
+    <div class="cover" role="banner">
+      <h1>[APP_NAME]</h1>
+      <p class="subtitle">AI UX Heuristics Audit — Evaluation Report</p>
+      <div class="meta-grid">
+        <div class="meta-item">
+          <div class="label">Framework</div>
+          <div class="value">AI UX Design Heuristics</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Review Date</div>
+          <div class="value">[AUDIT_DATE]</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Reviewer</div>
+          <div class="value">[REVIEWER]</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Model Tested</div>
+          <div class="value">[MODEL_TESTED]</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Audience</div>
+          <div class="value">[AUDIENCE]</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Scope</div>
+          <div class="value">[SCOPE]</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Evidence</div>
+          <div class="value">[EVIDENCE]</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Checks Total</div>
+          <div class="value">[TOTAL_CHECKS]</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+  MAIN CONTENT
+═══════════════════════════════════════════════════════ -->
+    <main id="main-content">
+      <div class="container">
+        <!-- ② Scope & Assumptions -->
+        <div class="section">
+          <h2 class="section-title">Scope &amp; Assumptions</h2>
+          <div class="evidence">
+            <p><strong>Scope:</strong> [SCOPE_TEXT]</p>
+            <p style="margin-top: 0.5rem">
+              <strong>Assumptions:</strong> [ASSUMPTIONS_TEXT]
+            </p>
+          </div>
+        </div>
+
+        <!-- ③ Executive Summary -->
+        <div class="section">
+          <h2 class="section-title">Executive Summary</h2>
+          <div class="executive-summary">
+            <h3>Overview</h3>
+            <p>[EXECUTIVE_SUMMARY_TEXT]</p>
+          </div>
+        </div>
+
+        <!-- ④ Scorecard -->
+        <div class="section" id="scorecard">
+          <h2 class="section-title">Scorecard</h2>
+
+          <!-- Standard 4-box scorecard (contract-required) -->
+          <div class="scorecard">
+            <div class="score-box pass">
+              <div class="count">[PASS_COUNT]</div>
+              <div class="label">Pass</div>
+            </div>
+            <div class="score-box partial">
+              <div class="count">[PARTIAL_COUNT]</div>
+              <div class="label">Partial</div>
+            </div>
+            <div class="score-box fail">
+              <div class="count">[FAIL_COUNT]</div>
+              <div class="label">Fail</div>
+            </div>
+            <div class="score-box unknown">
+              <div class="count">[UNKNOWN_COUNT]</div>
+              <div class="label">Unknown</div>
+            </div>
+          </div>
+
+          <!-- Overall health banner — class: red | amber | green -->
+          <div
+            class="ob [HEALTH_CLASS]"
+            role="region"
+            aria-label="Overall health"
+          >
+            <div class="ob-score">[OVERALL_PCT]</div>
+            <div class="ob-info">
+              <div class="ob-l">Overall Health</div>
+              <div class="ob-v">[HEALTH_LABEL]</div>
+            </div>
+          </div>
+
+          <!-- Health count cards -->
+          <div class="ov-grid" role="list">
+            <div class="ov-card red" role="listitem">
+              <div class="ov-num">[RED_COUNT]</div>
+              <div class="ov-label">Red — Escalate Now</div>
+              <div class="ov-sub">Below 50% pass rate</div>
+            </div>
+            <div class="ov-card amber" role="listitem">
+              <div class="ov-num">[AMBER_COUNT]</div>
+              <div class="ov-label">Amber — Next Sprint</div>
+              <div class="ov-sub">50–79% pass rate</div>
+            </div>
+            <div class="ov-card green" role="listitem">
+              <div class="ov-num">[GREEN_COUNT]</div>
+              <div class="ov-label">Green — Healthy</div>
+              <div class="ov-sub">80–100% pass rate</div>
+            </div>
+          </div>
+
+          <!--
+        GROUP CARD PATTERN (repeat ×6, replace [GROUP_CARDS]):
+
+        <div class="group-card [G_HEALTH_CLASS]">
+          <div class="group-top">
+            <span class="group-id">[G_ID]</span>
+            <span class="group-badge [G_HEALTH_CLASS]">[G_HEALTH_LABEL]</span>
+          </div>
+          <div class="group-name">[G_NAME]</div>
+          <svg class="donut" viewBox="0 0 100 100" role="img" aria-label="[G_PCT]">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="#dcdee1" stroke-width="10"/>
+            <circle cx="50" cy="50" r="40" fill="none" stroke="[G_DONUT_COLOR]" stroke-width="10"
+              stroke-dasharray="[G_DONUT_DASH] 251.327" stroke-dashoffset="62.832" stroke-linecap="round"/>
+            <text x="50" y="55" text-anchor="middle" font-size="18" fill="[G_DONUT_COLOR]"
+              font-family="SFMono-Regular,Menlo,monospace" font-weight="600">[G_PCT]</text>
+          </svg>
+          <div class="group-chips">
+            [G_CHIPS]
+          </div>
+        </div>
+
+        DONUT MATH (circumference C = 2π×40 ≈ 251.327):
+          [G_DONUT_DASH] = 251.327 × (pct / 100)
+          stroke-dashoffset is always 62.832 (= C/4, rotates start to 12 o'clock)
+
+        G_DONUT_COLOR by health:
+          red   → #aa0014
+          amber → #744b00
+          green → #185f28
+      -->
+          <div class="g-grid" role="list" aria-label="Group summaries">
+            <!-- [GROUP_CARDS] -->
+          </div>
+
+          <!-- Detailed per-heuristic scorecard table -->
+          <div style="margin-top: 2rem">
+            <div class="filters" role="group" aria-label="Filter by health">
+              <button class="f-btn active" onclick="filterRows('all', this)">
+                All ([ALL_COUNT])
+              </button>
+              <button class="f-btn r" onclick="filterRows('red', this)">
+                Red ([SC_RED_COUNT])
+              </button>
+              <button class="f-btn a" onclick="filterRows('amber', this)">
+                Amber ([SC_AMBER_COUNT])
+              </button>
+              <button class="f-btn g" onclick="filterRows('green', this)">
+                Green ([SC_GREEN_COUNT])
+              </button>
+            </div>
+
+            <div class="table-wrap">
+              <table class="sc" id="sc-table">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Heuristic</th>
+                    <th scope="col">Pass</th>
+                    <th scope="col">Partial</th>
+                    <th scope="col">Fail</th>
+                    <th scope="col">Score</th>
+                    <th scope="col">Health</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!--
+                SCORECARD ROW PATTERN (repeat ×19, replace [SCORECARD_ROWS]):
+
+                <tr class="[H_HEALTH_CLASS]-row" data-health="[H_HEALTH_CLASS]">
+                  <td><span class="id-chip">[H_ID]</span></td>
+                  <td class="td-name">[H_NAME]</td>
+                  <td class="td-num pass-col">[H_PASS]</td>
+                  <td class="td-num partial-col">[H_PARTIAL]</td>
+                  <td class="td-num fail-col">[H_FAIL]</td>
+                  <td class="td-bar">
+                    <div class="score-bar-wrap">
+                      <div class="score-bar-track">
+                        <div class="score-bar-fill [H_HEALTH_CLASS]" style="width:[H_SCORE_WIDTH]"></div>
+                      </div>
+                      <span class="score-val [H_HEALTH_CLASS]">[H_SCORE_PCT]</span>
+                    </div>
+                  </td>
+                  <td><span class="h-badge [H_HEALTH_CLASS]">[H_HEALTH_LABEL]</span></td>
+                </tr>
+
+                N/A score: replace td-bar cell with <td class="td-bar"><span class="score-na">N/A</span></td>
+                Zero counts: use "-" instead of "0"
+              -->
+                  <!-- [SCORECARD_ROWS] -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ⑤ Risk Banner — class: critical | high | medium | low -->
+        <aside class="risk-banner [RISK_CLASS]" aria-label="Overall risk level">
+          <div class="icon" aria-hidden="true">[RISK_ICON]</div>
+          <div class="text">
+            <p class="risk-title">[RISK_LABEL] Risk</p>
+            <p>[RISK_DESCRIPTION]</p>
+          </div>
+        </aside>
+
+        <!-- ⑥ Findings — tier-based priority cards -->
+        <div class="section" id="findings">
+          <h2 class="section-title">Findings</h2>
+
+          <div class="findings-grid">
+            <!--
+          TIER BLOCK PATTERN (repeat per tier, replace [PRIORITY_TIERS]):
+
+          <div class="tier-block tier-critical">
+            <div class="tier-header-label">Critical — Next Sprint</div>
+            <div class="findings-grid">
+              [FINDING_CARDS for this tier]
+            </div>
+          </div>
+
+          <div class="tier-block tier-high">
+            <div class="tier-header-label">High — This Quarter</div>
+            <div class="findings-grid">...</div>
+          </div>
+
+          <div class="tier-block tier-roadmap">
+            <div class="tier-header-label">Roadmap — Next Quarter+</div>
+            <div class="findings-grid">...</div>
+          </div>
+
+          ──────────────────────────────────────────────────
+          FINDING CARD PATTERN (inside a tier's findings-grid):
+
+          <div class="finding-card [F_CLASS]">
+            <div class="finding-title">[F_TITLE]</div>
+            <div class="f-row">
+              <span class="f-label">Finding</span>
+              <span class="f-val">[F_FINDING]</span>
+            </div>
+            <div class="f-row risk">
+              <span class="f-label">Risk</span>
+              <span class="f-val">[F_RISK]</span>
+            </div>
+            <div class="f-chips">
+              <span class="owner-chip">[F_OWNER]</span>
+              <span class="effort-chip [F_EFFORT_CLASS]">[F_EFFORT]</span>
+            </div>
+
+            [OPTIONAL action row — omit if no explicit recommended action]
+            <div class="action-row">
+              <span>→</span>
+              <span>[F_ACTION]</span>
+            </div>
+
+            [OPTIONAL screenshot — omit block if no screenshot captured]
+            <div class="finding-screenshot">
+              <img src="screenshots/[F_SCREENSHOT]" alt="[F_SCREENSHOT_ALT]" loading="lazy"/>
+            </div>
+
+            Copies this finding's text to the clipboard for pasting into a Jira story:
+            <button type="button" class="jira-copy-btn" onclick="copyFindingToJira(this)">📋 Copy to Jira</button>
+          </div>
+
+          F_CLASS values:
+            Critical tier : ""  (default, red left border)
+            High tier     : "finding-card-high"    (amber)
+            Roadmap tier  : "finding-card-roadmap" (blue)
+        -->
+            <!-- [PRIORITY_TIERS] -->
+          </div>
+        </div>
+
+        <!-- ⑦ Priority Remediation Matrix -->
+        <div class="section page-break" id="remediation">
+          <h2 class="section-title">Priority Remediation Matrix</h2>
+          <table class="matrix-table">
+            <thead>
+              <tr>
+                <th>Priority</th>
+                <th>Issue</th>
+                <th>Category</th>
+                <th>Severity</th>
+                <th>Effort</th>
+                <th>Recommended Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!--
+            MATRIX ROW PATTERN (repeat per finding, sorted P0 → P3, replace [MATRIX_ROWS]):
+
+            <tr>
+              <td><span class="priority-tag p0">[PRIORITY_TIER]</span></td>
+              <td>[ISSUE_TITLE]</td>
+              <td>[CATEGORY]</td>
+              <td><span class="badge critical">[SEVERITY_LABEL]</span></td>
+              <td><span class="badge effort-s">[EFFORT_LABEL]</span></td>
+              <td>[RECOMMENDED_ACTION]</td>
+            </tr>
+          -->
+              <!-- [MATRIX_ROWS] -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ⑧ Methodology -->
+        <div class="section">
+          <h2 class="section-title">Methodology</h2>
+          <div class="methodology-grid">
+            <div class="methodology-card">
+              <h5>Framework</h5>
+              <p>[FRAMEWORK_DESCRIPTION]</p>
+            </div>
+            <div class="methodology-card">
+              <h5>Evaluation Approach</h5>
+              <p>[EVALUATION_APPROACH]</p>
+            </div>
+            <div class="methodology-card">
+              <h5>Rating Scale</h5>
+              <p>Pass · Partial · Fail · Unknown</p>
+            </div>
+            <div class="methodology-card">
+              <h5>Severity Levels</h5>
+              <p>Critical · High · Medium · Low</p>
+            </div>
+            <div class="methodology-card">
+              <h5>Effort Estimates</h5>
+              <p>S (&lt;1 sprint) · M (1–2 sprints) · L (3+ sprints)</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ⑨ Confidence & Gaps -->
+        <div class="section">
+          <h2 class="section-title">Confidence &amp; Gaps</h2>
+          <div class="evidence">
+            <p>
+              <strong>Overall Confidence:</strong> [CONFIDENCE_LEVEL] —
+              [CONFIDENCE_NARRATIVE]
+            </p>
+            <p style="margin-top: 0.5rem"><strong>Gaps:</strong> [GAPS_TEXT]</p>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════
+      AI-UX-AUDIT EXTENSIONS (after contract sections)
+    ═══════════════════════════════════════════════════════ -->
+
+        <!-- Quick Wins -->
+        <div class="section" id="quick-wins">
+          <h2 class="section-title">Quick Wins</h2>
+          <ul class="wins-list" aria-label="Quick win items">
+            <!--
+          QUICK WIN PATTERN (repeat per item, replace [WIN_ITEMS]):
+
+          <li>
+            <span class="win-icon" aria-hidden="true">⚡</span>
+            [WIN_TEXT including heuristic ID reference e.g. "(2.2)"]
+          </li>
+        -->
+            <!-- [WIN_ITEMS] -->
+          </ul>
+        </div>
+
+        <!-- Roadmap -->
+        <div class="section" id="roadmap">
+          <h2 class="section-title">Roadmap Items</h2>
+          <div class="prose">
+            <ul>
+              <!--
+            ROADMAP ITEM PATTERN (replace [ROADMAP_ITEMS]):
+            <li>[Description] — [Effort] ([H_ID])</li>
+          -->
+              <!-- [ROADMAP_ITEMS] -->
+            </ul>
+          </div>
+        </div>
+
+        <!-- Actions by Role -->
+        <div class="section" id="roles">
+          <h2 class="section-title">Actions by Role</h2>
+          <div class="role-grid" role="list">
+            <!--
+          ROLE CARD PATTERN (4 cards, replace [ROLE_CARDS]):
+
+          <div class="role-card" style="--rc:[ROLE_COLOR]" role="listitem">
+            <div class="role-header">
+              <span class="role-icon"
+                style="background:[ROLE_COLOR]18;color:[ROLE_COLOR];border:1px solid [ROLE_COLOR]30">
+                [ROLE_INITIAL]
+              </span>
+              <span class="role-name">[ROLE_NAME]</span>
+            </div>
+            <div class="role-body">[ROLE_BODY — prose or <ul><li>...</li></ul>]</div>
+          </div>
+
+          Density token color per role:
+            Business & Leadership : #037493 (--color-ocean-600)
+            Product Management    : #185f28 (--color-green-700)
+            UX & Design           : #744b00 (--color-yellow-700)
+            Development           : #005499 (--color-blue-700)
+        -->
+            <!-- [ROLE_CARDS] -->
+          </div>
+        </div>
+
+        <div class="report-footer" role="contentinfo">
+          <span>AI UX Design Heuristics · [APP_NAME]</span>
+          <span>[AUDIT_DATE]</span>
+        </div>
+      </div>
+      <!-- /container -->
+    </main>
+
+    <script>
+      /* ── Scroll-spy for jump nav ─────────────────────────────── */
+      (function () {
+        var sections = document.querySelectorAll(".section[id]");
+        var links = document.querySelectorAll(".report-nav a");
+        if (!links.length) return;
+
+        function setActive(id) {
+          links.forEach(function (l) {
+            l.classList.toggle("active", l.getAttribute("href") === "#" + id);
+          });
+        }
+
+        // Click handler — immediately highlight the clicked link
+        links.forEach(function (link) {
+          link.addEventListener("click", function () {
+            setActive(link.getAttribute("href").slice(1));
+          });
+        });
+
+        // Scroll-based highlight via IntersectionObserver
+        if (window.IntersectionObserver) {
+          var observer = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (e) {
+                if (e.isIntersecting) setActive(e.target.id);
+              });
+            },
+            { threshold: 0.1, rootMargin: "-60px 0px -50% 0px" },
+          );
+          sections.forEach(function (s) {
+            observer.observe(s);
+          });
+        }
+      })();
+
+      /* ── Scorecard filter ────────────────────────────────────── */
+      function filterRows(health, btn) {
+        document.querySelectorAll(".f-btn").forEach(function (b) {
+          b.classList.remove("active");
+        });
+        btn.classList.add("active");
+        document.querySelectorAll("#sc-table tbody tr").forEach(function (r) {
+          r.style.display =
+            health === "all" || r.dataset.health === health ? "" : "none";
+        });
+      }
+
+      /* ── Stagger animations ──────────────────────────────────── */
+      document.querySelectorAll("#sc-table tbody tr").forEach(function (r, i) {
+        r.style.opacity = 0;
+        setTimeout(
+          function () {
+            r.style.transition = "opacity .25s ease";
+            r.style.opacity = 1;
+          },
+          i * 20 + 200,
+        );
+      });
+      document.querySelectorAll(".group-card").forEach(function (c, i) {
+        c.style.animationDelay = i * 60 + "ms";
+      });
+
+      /* ── Copy a finding's title, details, and recommended action to the clipboard
+   so it can be pasted into a Jira story manually. ────────────────────── */
+      function copyFindingToJira(btn) {
+        var card = btn.closest(".finding-card");
+        var title =
+          card.querySelector(".finding-title")?.textContent.trim() || "";
+        var rows = Array.from(card.querySelectorAll(".f-row")).map(
+          function (row) {
+            var label = row.querySelector(".f-label")?.textContent.trim() || "";
+            var val = row.querySelector(".f-val")?.textContent.trim() || "";
+            return label + ": " + val;
+          },
+        );
+        var chips = Array.from(
+          card.querySelectorAll('.f-chips [class$="-chip"]'),
+        )
+          .map(function (c) {
+            return c.textContent.trim();
+          })
+          .join(" | ");
+        var action =
+          card
+            .querySelector(".action-row")
+            ?.textContent.replace(/\s+/g, " ")
+            .trim() || "";
+
+        var text = [title, chips, ""]
+          .concat(rows)
+          .concat(action ? ["", action] : [])
+          .join("\n");
+
+        if (!navigator.clipboard || !navigator.clipboard.writeText) {
+          alert(
+            "Copy is not supported in this browser. Please select and copy the finding text manually.",
+          );
+          return;
+        }
+
+        navigator.clipboard
+          .writeText(text)
+          .then(function () {
+            var original = btn.textContent;
+            btn.textContent = "✅ Copied!";
+            btn.classList.add("copied");
+            setTimeout(function () {
+              btn.textContent = original;
+              btn.classList.remove("copied");
+            }, 1500);
+          })
+          .catch(function () {
+            alert(
+              "Could not copy automatically. Please select and copy the finding text manually.",
+            );
+          });
+      }
+    </script>
+  </body>
+</html>

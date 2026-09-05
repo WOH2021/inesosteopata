@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Feedback Analysis — Skill Overview</title>
+    <style>
+      :root {
+        --color-bg: #0d1117;
+        --color-surface: #161b22;
+        --color-border: #30363d;
+        --color-text: #e6edf3;
+        --color-text-muted: #8b949e;
+        --color-accent: #58a6ff;
+        --color-accent-subtle: rgba(88, 166, 255, 0.1);
+        --color-success: #3fb950;
+        --color-warning: #d29922;
+        --color-danger: #f85149;
+        --radius: 12px;
+        --max-width: 960px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: var(--color-bg);
+        color: var(--color-text);
+        line-height: 1.6;
+        padding: 2rem 1.5rem;
+      }
+
+      .container {
+        max-width: var(--max-width);
+        margin: 0 auto;
+      }
+
+      /* Hero */
+      .hero {
+        text-align: center;
+        padding: 4rem 2rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius);
+        background: linear-gradient(
+          135deg,
+          var(--color-surface) 0%,
+          var(--color-bg) 100%
+        );
+        margin-bottom: 3rem;
+      }
+
+      .hero-badge {
+        display: inline-block;
+        background: var(--color-accent-subtle);
+        color: var(--color-accent);
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        margin-bottom: 1rem;
+      }
+
+      .hero h1 {
+        font-size: 2.4rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        background: linear-gradient(90deg, var(--color-accent), #a371f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero p {
+        font-size: 1.15rem;
+        color: var(--color-text-muted);
+        max-width: 640px;
+        margin: 0 auto;
+      }
+
+      /* Section */
+      section {
+        margin-bottom: 3rem;
+      }
+
+      section h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      section h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        color: var(--color-accent);
+      }
+
+      p,
+      li {
+        color: var(--color-text-muted);
+        margin-bottom: 0.5rem;
+      }
+
+      /* Cards grid */
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.25rem;
+        margin-top: 1rem;
+      }
+
+      .card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        transition: border-color 0.2s;
+      }
+
+      .card:hover {
+        border-color: var(--color-accent);
+      }
+
+      .card-icon {
+        font-size: 1.75rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .card h4 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--color-text);
+      }
+
+      .card p {
+        font-size: 0.9rem;
+      }
+
+      /* Workflow steps */
+      .workflow {
+        position: relative;
+        padding-left: 2.5rem;
+        margin-top: 1rem;
+      }
+
+      .workflow::before {
+        content: "";
+        position: absolute;
+        left: 0.85rem;
+        top: 0.5rem;
+        bottom: 0.5rem;
+        width: 2px;
+        background: var(--color-border);
+      }
+
+      .step {
+        position: relative;
+        margin-bottom: 1.5rem;
+      }
+
+      .step::before {
+        content: "";
+        position: absolute;
+        left: -1.65rem;
+        top: 0.55rem;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--color-accent);
+        border: 2px solid var(--color-bg);
+      }
+
+      .step-title {
+        font-weight: 600;
+        color: var(--color-text);
+        margin-bottom: 0.25rem;
+      }
+
+      .step p {
+        font-size: 0.9rem;
+      }
+
+      /* Inputs / Outputs table */
+      .io-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .io-table th,
+      .io-table td {
+        text-align: left;
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .io-table th {
+        background: var(--color-surface);
+        color: var(--color-text);
+        font-weight: 600;
+      }
+
+      .io-table td {
+        color: var(--color-text-muted);
+      }
+
+      .badge {
+        display: inline-block;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        padding: 0.15rem 0.5rem;
+        border-radius: 4px;
+      }
+
+      .badge--required {
+        background: rgba(248, 81, 73, 0.15);
+        color: var(--color-danger);
+      }
+
+      .badge--optional {
+        background: rgba(210, 153, 34, 0.15);
+        color: var(--color-warning);
+      }
+
+      /* Value prop */
+      .value-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.25rem;
+        margin-top: 1rem;
+      }
+
+      .value-item {
+        text-align: center;
+        padding: 1.5rem 1rem;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius);
+      }
+
+      .value-item .number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--color-accent);
+      }
+
+      .value-item .label {
+        font-size: 0.85rem;
+        color: var(--color-text-muted);
+        margin-top: 0.25rem;
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 2rem 0;
+        border-top: 1px solid var(--color-border);
+        color: var(--color-text-muted);
+        font-size: 0.85rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Hero -->
+      <header class="hero">
+        <span class="hero-badge">DesignOps Skill</span>
+        <h1>User Feedback Analysis</h1>
+        <p>
+          Transform raw user feedback into structured, prioritised UX findings —
+          with automated severity scoring, live visual verification, and Nielsen
+          heuristic correlation.
+        </p>
+      </header>
+
+      <!-- What it does -->
+      <section>
+        <h2>What It Does</h2>
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon">📊</div>
+            <h4>Ingest Any Format</h4>
+            <p>
+              Accepts CSV, plain text, JSON, or pasted survey responses.
+              Automatically normalises ratings and strips metadata.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🏷️</div>
+            <h4>Categorise &amp; Cluster</h4>
+            <p>
+              Classifies feedback by UX category (Navigation, Performance,
+              Forms, etc.), sentiment, and clusters duplicate items together.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">⚖️</div>
+            <h4>Priority Scoring</h4>
+            <p>
+              Computes a Frequency × Severity matrix and assigns each issue to a
+              quadrant: Critical, Investigate, Monitor, or Backlog.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔍</div>
+            <h4>Live Visual Verification</h4>
+            <p>
+              Opens the application in a browser, navigates to reported problem
+              areas, captures screenshots, and confirms or refutes findings.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🧪</div>
+            <h4>Nielsen Heuristic Mapping</h4>
+            <p>
+              Maps each finding to relevant Nielsen heuristics with confidence
+              levels — connecting user pain points to established usability
+              principles.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📄</div>
+            <h4>HTML Report Generation</h4>
+            <p>
+              Produces a professional Density-styled HTML report with findings
+              cards, priority matrix, screenshots, and actionable
+              recommendations.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Value Proposition -->
+      <section>
+        <h2>Why Use This Skill?</h2>
+        <div class="value-grid">
+          <div class="value-item">
+            <div class="number">80%</div>
+            <div class="label">Faster than manual analysis</div>
+          </div>
+          <div class="value-item">
+            <div class="number">1</div>
+            <div class="label">Unified prioritised report</div>
+          </div>
+          <div class="value-item">
+            <div class="number">4</div>
+            <div class="label">Priority quadrants for action</div>
+          </div>
+          <div class="value-item">
+            <div class="number">✓</div>
+            <div class="label">Visual evidence included</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Inputs & Outputs -->
+      <section>
+        <h2>Inputs &amp; Outputs</h2>
+        <h3>Inputs</h3>
+        <table class="io-table">
+          <thead>
+            <tr>
+              <th>Input</th>
+              <th>Status</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>User feedback data</td>
+              <td><span class="badge badge--required">Required</span></td>
+              <td>CSV, plain text, JSON, or pasted survey responses</td>
+            </tr>
+            <tr>
+              <td>App / product name</td>
+              <td><span class="badge badge--required">Required</span></td>
+              <td>Used in report title and file naming</td>
+            </tr>
+            <tr>
+              <td>Application URL</td>
+              <td><span class="badge badge--optional">Optional</span></td>
+              <td>Enables live click-through verification with screenshots</td>
+            </tr>
+            <tr>
+              <td>Existing Nielsen audit report</td>
+              <td><span class="badge badge--optional">Optional</span></td>
+              <td>Enables heuristic correlation and severity elevation</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 style="margin-top: 2rem">Outputs</h3>
+        <table class="io-table">
+          <thead>
+            <tr>
+              <th>Output</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Prioritised findings</td>
+              <td>Each cluster scored by severity, frequency, and quadrant</td>
+            </tr>
+            <tr>
+              <td>Priority matrix</td>
+              <td>Frequency × Severity grid sorted by priority score</td>
+            </tr>
+            <tr>
+              <td>Visual verification</td>
+              <td>Screenshots + confirmation status per finding</td>
+            </tr>
+            <tr>
+              <td>Heuristic correlation</td>
+              <td>Mapping to Nielsen's 10 heuristics with confidence</td>
+            </tr>
+            <tr>
+              <td>Density-styled HTML report</td>
+              <td>Saved to <code>reports/user-feedback-analysis/</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Workflow -->
+      <section>
+        <h2>How It Works</h2>
+        <div class="workflow">
+          <div class="step">
+            <div class="step-title">Step 0 — Gather Inputs</div>
+            <p>
+              Collects app name, feedback data, and optional URL or existing
+              audit report from the user.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-title">Step 1 — Ingest &amp; Parse</div>
+            <p>
+              Reads feedback in any supported format, normalises ratings to a
+              1–5 scale, and confirms item count.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-title">Step 2 — Categorise &amp; Classify</div>
+            <p>
+              Assigns UX categories (NAV, PERF, FORM…), classifies sentiment,
+              and clusters near-duplicates.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-title">
+              Step 3 — Score Severity &amp; Frequency
+            </div>
+            <p>
+              Calculates priority score using weighted formula:
+              <code>(severity × 0.6) + (frequency × 0.4)</code>. Maps to
+              quadrants.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-title">Step 4 — Map to Nielsen Heuristics</div>
+            <p>
+              Correlates findings to established usability principles with
+              confidence ratings.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-title">Step 5 — Live Visual Verification</div>
+            <p>
+              Opens the app in a browser, navigates to affected areas, captures
+              screenshots, and assigns verification status.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-title">Step 6 — Correlate with Existing Audit</div>
+            <p>
+              Cross-references findings with a prior Nielsen audit report.
+              Elevates severity for confirmed issues.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-title">Step 7 — Generate HTML Report</div>
+            <p>
+              Produces a professional Density-styled report with all findings,
+              screenshots, priority matrix, and recommendations.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Priority Quadrants -->
+      <section>
+        <h2>Priority Quadrants</h2>
+        <p>
+          Every finding is placed into one of four action quadrants based on its
+          combined severity and frequency score:
+        </p>
+        <div class="cards" style="margin-top: 1.25rem">
+          <div class="card" style="border-left: 3px solid var(--color-danger)">
+            <h4>🔴 Critical</h4>
+            <p>
+              High severity + High frequency. Fix immediately — these issues
+              affect many users severely.
+            </p>
+          </div>
+          <div class="card" style="border-left: 3px solid var(--color-warning)">
+            <h4>🟡 Investigate</h4>
+            <p>
+              High severity + Low frequency OR Low severity + High frequency.
+              Needs further analysis.
+            </p>
+          </div>
+          <div class="card" style="border-left: 3px solid var(--color-accent)">
+            <h4>🔵 Monitor</h4>
+            <p>
+              Medium severity + Medium frequency. Track over time and address in
+              upcoming sprints.
+            </p>
+          </div>
+          <div
+            class="card"
+            style="border-left: 3px solid var(--color-text-muted)"
+          >
+            <h4>⚪ Backlog</h4>
+            <p>
+              Low severity + Low frequency. Log for future consideration —
+              minimal current impact.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Use Cases -->
+      <section>
+        <h2>When to Use This Skill</h2>
+        <ul style="padding-left: 1.25rem; list-style: disc">
+          <li>After collecting user survey responses or app store reviews</li>
+          <li>
+            When a product team needs to prioritise UX fixes for the next sprint
+          </li>
+          <li>
+            To validate qualitative feedback with visual evidence from the live
+            app
+          </li>
+          <li>
+            To connect user complaints to established usability heuristics
+          </li>
+          <li>
+            When combining user feedback insights with a prior UX audit report
+          </li>
+          <li>To generate a shareable report for stakeholder alignment</li>
+        </ul>
+      </section>
+
+      <!-- Integration -->
+      <section>
+        <h2>Integrations</h2>
+        <div class="cards">
+          <div class="card">
+            <h4>ux-report-generation</h4>
+            <p>
+              Uses the shared Density-styled HTML report template for
+              consistent, professional output.
+            </p>
+          </div>
+          <div class="card">
+            <h4>ux-reviewer</h4>
+            <p>
+              Can correlate findings with an existing Nielsen heuristics audit
+              to cross-validate issues.
+            </p>
+          </div>
+          <div class="card">
+            <h4>Browser Tools</h4>
+            <p>
+              Leverages VS Code's built-in browser for live click-through
+              verification and screenshot capture.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <p>
+          User Feedback Analysis Skill v0.4.0 — DesignOps Skills Collection —
+          BMW Group
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>
