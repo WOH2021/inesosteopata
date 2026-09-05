@@ -23,17 +23,27 @@
         <link rel="apple-touch-icon" type="image/png" sizes="128x128" href="assets/images/favicon/apple-touch-icon.png">
         <link rel="stylesheet" href="style.css?v=1.1" />
         <link href='https://fonts.googleapis.com/css?family=Jost' rel='stylesheet'>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <title>Osteopatia Pediátrica no Porto e Vila do Conde | Inês Silva</title>
         <meta name="description" content="Osteopatia Pediátrica no Porto e Vila do Conde. Marque a sua consulta com Inês Silva, osteopata com formação em pediatria, ginecologia e gestação.">
         <meta name="keywords" content="Osteopatia, Osteopata, Fisioterapia, Saúde infantil, Saúde bebés">
         <meta name="robots" content="index, follow">
     </head>
 <body>
+  <a class="skip-link" href="#main-content">Saltar para o conteúdo</a>
+  <header class="site-header">
+    <a class="brand-link" href="#top" aria-label="Inês Silva Osteopata - início">Inês Silva Osteopata</a>
+    <nav aria-label="Navegação principal">
+      <a href="#about">Sobre</a>
+      <a href="#pediatrica">Osteopatia pediátrica</a>
+      <a href="#workshop">Workshop</a>
+      <a class="nav-contact" href="#contact">Marcar consulta</a>
+    </nav>
+  </header>
+  <div id="top"></div>
   <div class="landing-container">
   <div id="title">
     <div class="int">
-      <img class="logo" src="assets/images/inesosteologo.png" alt="Ines Osteopata Logo">
+      <img class="logo" src="assets/images/inesosteologo.png" alt="Inês Silva Osteopata">
     </div>
   </div>
 
@@ -41,16 +51,20 @@
     <div class="int">
       <h1>Osteopatia Pediátrica</h1>
       <h2>Cuidados especializados para bebés e famílias na região do Porto e Vila do Conde.</h2>
-      <button id="knowmore" aria-label="Mais informações sobre a a Ines Silva Osteopata">Saiba Mais</button>
+      <div class="hero-actions">
+        <a class="hero-primary" href="#contact">Marcar consulta</a>
+        <a class="hero-secondary" href="#pediatrica">Conhecer a osteopatia pediátrica</a>
+      </div>
     </div>
   </div>
   </div>
 
+  <main id="main-content">
   <div id="about">
     <div class="about-content">
       <div>
-        <h3>Sobre Inês Silva</h3>
-        <h3>Osteopata especializada</h3>
+        <h2>Sobre Inês Silva</h2>
+        <p class="about-role">Osteopata especializada</p>
       </div>
       <img class="content-photo about-photo" src="assets/images/Ines-profile-pic2.jpeg" alt="Inês Silva, osteopata especializada">
     </div>
@@ -71,10 +85,14 @@
       <div class="section-intro">
         <h2>Osteopatia Pediátrica</h2>
         <p>
-          A Osteopatia Pediátrica é uma abordagem suave e indolor, que atua desde o nascimento até à idade adulta, e que tem como principal objetivo restabelecer a função das várias estruturas e sistemas corporais, contribuindo, assim, para um desenvolvimento saudável e harmonioso.
+          A Osteopatia Pediátrica é uma abordagem suave e adaptada a bebés e crianças, com o objetivo de apoiar o seu conforto, mobilidade e desenvolvimento saudável.
         </p>
       </div>
       <img class="content-photo treatment-photo" src="assets/images/Ines-profile-pic3.jpeg" alt="Consulta de osteopatia pediátrica">
+      <div class="first-visit">
+        <h3>Como funciona a primeira consulta?</h3>
+        <p>Começamos por conversar sobre a gravidez, parto e rotina do bebé. Depois faço uma avaliação suave e explico cada passo, para que possa decidir com confiança.</p>
+      </div>
       <div class="reasons-container">
         <h3>Quando devo marcar?</h3>
         <ul class="reason-list">
@@ -88,35 +106,40 @@
           <li>Irritabilidade sem razão aparente</li>
           <li>Escolioses ou outras alterações posturais</li>
         </ul>
+        <p class="clinical-note">Em caso de sintomas súbitos, dificuldade respiratória, febre ou outra preocupação urgente, contacte primeiro o serviço de saúde adequado.</p>
       </div>
     </div>
     <div id="workshop">
       <h2>Workshop de massagem no bebé</h2>
       <p>Aprenda técnicas de massagem para promover o bem-estar e fortalecer o vínculo com o seu bebé.</p>
       <img class="content-photo workshop-photo" src="assets/images/Ines-baby-pic2.jpeg" alt="Inês Silva num ambiente infantil">
-      <a href="https://escolapediatria.pt/curso/massagem-bebe/" target="_blank" rel="noopener noreferrer">Saber mais</a>
+      <a href="https://escolapediatria.pt/curso/massagem-bebe/" target="_blank" rel="noopener noreferrer">Ver workshop na Escola de Pediatria <span class="external-label">(abre num novo separador)</span></a>
     </div>
     <div id="contact">
       <img class="logo" src="assets/images/inesosteologo.png" alt="Ines Osteopata Logo">
       <h2>Entrar em contacto</h2>
-      <p class="contact-intro">Para marcar uma consulta, fale comigo diretamente pelo WhatsApp.</p>
+      <p class="contact-intro">Para marcar uma consulta, escolha a forma de contacto mais confortável para si.</p>
       <a class="whatsapp-button" href="https://wa.me/351937951232?text=Ol%C3%A1%20In%C3%AAs%2C%20gostaria%20de%20marcar%20uma%20consulta." target="_blank" rel="noopener noreferrer">Entrar em contacto pelo WhatsApp</a>
+      <div class="contact-alternatives">
+        <a href="tel:+351937951232">Ligar: +351 937 951 232</a>
+      </div>
       <h3 class="locations-title">Onde me podem encontrar</h3>
       <div class="contact-container">
         <div class="contact-card">
           <h3>Bodymotion</h3>
-          <p>Travessa Bernardino Craveiro 152<br>4480-721 Vila do Conde</p>
+          <p><a href="https://www.google.com/maps/search/?api=1&amp;query=Travessa+Bernardino+Craveiro+152%2C+4480-721+Vila+do+Conde" target="_blank" rel="noopener noreferrer">Travessa Bernardino Craveiro 152<br>4480-721 Vila do Conde <span class="external-label">(abrir mapa)</span></a></p>
         </div>
         <div class="contact-card">
           <h3>Kidness Clinic Foz</h3>
-          <p>Rua do Marechal Saldanha 512<br>4150-652 Porto</p>
+          <p><a href="https://www.google.com/maps/search/?api=1&amp;query=Rua+do+Marechal+Saldanha+512%2C+4150-652+Porto" target="_blank" rel="noopener noreferrer">Rua do Marechal Saldanha 512<br>4150-652 Porto <span class="external-label">(abrir mapa)</span></a></p>
         </div>
         <div class="contact-card">
           <h3>Kidness Clinic Póvoa de Varzim</h3>
-          <p>Rua Doutor Josué Trocado 293<br>4490-618 Póvoa de Varzim</p>
+          <p><a href="https://www.google.com/maps/search/?api=1&amp;query=Rua+Doutor+Josue+Trocado+293%2C+4490-618+Povoa+de+Varzim" target="_blank" rel="noopener noreferrer">Rua Doutor Josué Trocado 293<br>4490-618 Póvoa de Varzim <span class="external-label">(abrir mapa)</span></a></p>
         </div>
       </div>
     </div>
+  </main>
 
     <footer>
       <div class="social-icons">
@@ -129,7 +152,6 @@
       </div>
       <p>Made by Vianexu</p>
     </footer>
-  <script src="index.js?v=1.1"></script>
   <script type="application/ld+json">
     {
   "@context": "https://schema.org",
